@@ -26,7 +26,7 @@ int main ()
 
     area1 = new Area; // Variables created using the new operator are called dynamic variables
     area1 -> display();
-
+    
     delete area1; // Delete the dynamic variable p1 and return the memory occupied by p1 to the freestore to be reused.
 
    return 0;
