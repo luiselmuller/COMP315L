@@ -26,21 +26,25 @@ int main()
 {
     Student *sArr;
 
+    //this variable is used to determine the size of the array
     int n;
     cout<<"Enter the number of students: ";
     cin>>n;
 
-    sArr = new Student[n];
+    sArr = new Student[n];//dynamic array with n amount of students
 
+    //used to iterate through the dynamic array and display each object in it
     for(int i = 0; i < n; i++)
     {
         sArr[i].display();
     }
-
+    
+    //deletes the block of allocated memory for sArr
     delete [] sArr;
 
 }
 
+//default constructor used to initialize the class variables
 Student::Student()
 {
     cout<<"Enter a student name: ";
@@ -50,6 +54,7 @@ Student::Student()
     cout<<"\n";
 }
 
+//function used to display the variables
 void Student::display()
 {
     cout<<"Student name -> "<<student_name<<" | Student ID -> "<<studentid_number<<"\n";
