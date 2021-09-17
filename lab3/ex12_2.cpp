@@ -48,9 +48,10 @@ int main()
 Student::Student()
 {
     cout<<"Enter a student name: ";
-    cin>>student_name;
+    cin.ignore();//removes extra characters left after using cin
+    getline(cin, student_name);
     cout<<"Enter a student id: ";
-    cin>>studentid_number;
+    getline(cin, studentid_number);
     cout<<"\n";
 }
 
