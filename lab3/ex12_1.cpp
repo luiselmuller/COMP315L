@@ -32,6 +32,7 @@ int main ()
    return 0;
 }
 
+//default constructor that initializes the class members
 Area::Area()
 {
     cout<<"Input the value of an area: ";

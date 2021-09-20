@@ -4,11 +4,10 @@
 |This program makes a student "database"
 |where the person can input the student
 |name and id one by one and then view all
-|of the data in the database.
+|of the data in said "database".
 |--------------------------------------*/
 
 #include <iostream>
-
 using namespace std;
 
 class Student
@@ -19,14 +18,13 @@ class Student
 
     private:
     string student_name, studentid_number;
-    
 };
 
 int main()
 {
     Student *sArr;
 
-    //this variable is used to determine the size of the array
+    //variable used to determine the size of the array
     int n;
     cout<<"Enter the number of students: ";
     cin>>n;
@@ -42,21 +40,25 @@ int main()
     //deletes the block of allocated memory for sArr
     delete [] sArr;
 
+    return 0;
 }
 
 //default constructor used to initialize the class variables
 Student::Student()
 {
-    cout<<"Enter a student name: ";
     cin.ignore();//removes extra characters left after using cin
+    cout<<"Enter a student name: ";
     getline(cin, student_name);
     cout<<"Enter a student id: ";
     getline(cin, studentid_number);
+    cout<<"Press enter to continue...";
     cout<<"\n";
 }
 
-//function used to display the variables
+//function used to display the variable values
 void Student::display()
 {
-    cout<<"Student name -> "<<student_name<<" | Student ID -> "<<studentid_number<<"\n";
+    cout<<"+------------------------------------------------+\n";
+    cout<<" Student Name | "<<student_name<<" \n";
+    cout<<" Student ID   | "<<studentid_number<<" \n";
 }
