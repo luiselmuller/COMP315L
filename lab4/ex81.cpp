@@ -79,38 +79,43 @@ AltMoney add(AltMoney m1, AltMoney m2)
 AltMoney subtract(AltMoney m1, AltMoney m2)
 {
     AltMoney sub;
-    int greater = 0;
-    int lesser = 0;
-    int extra = 0;
 
-    //needs fix
-    if(m1.dollars > m2.dollars)
-    {
-        greater = m1.dollars;
-        lesser = m2.dollars;
-    }
-    else
-    {
-        greater = m2.dollars;
-        lesser = m1.dollars;
-    }
-
-    sub.dollars = greater - lesser;
-
-    if(m1.cents > m2.cents)
-    {
-        greater = m1.cents;
-        lesser = m2.cents;
-    }
-    else
-    {
-        greater = m2.cents;
-        lesser = m1.cents;
+    //TODO: MAKE THIS MORE EFFICIENT (and make it actually work)
+    int left = (m1.cents/10) - 1;
+    int right = (m1.cents % 10) + 10;
     
+    if( m1.cents % 10 < m2.cents % 10)
+    {
+        right = right - (m2.cents % 10);
+        if(m1.cents/10 < m2.cents/10)
+        {
+            if(m1.dollars)
+            {
+                m1.dollars -= 1;
+                left += 10; 
+            }
+            sub.cents = 10 * (left - (m2.cents/10));
+        }
+        sub.cents += right;
+    }
+    else if(m2.cents % 10 < m1.cents % 10)
+    {
+        left = (m2.cents/10) - 1;
+        right = right - (m1.cents % 10);
+        if(m2.cents/10 < m1.cents/10)
+        {
+            if(m2.dollars)
+            {
+                m2.dollars -= 1;
+                left += 10; 
+            }
+            sub.cents = 10 * (left - (m1.cents/10));
+        }
+        sub.cents += right;
     }
 
-        sub.cents = greater - lesser;
-
+    sub.dollars = abs(m1.dollars - m2.dollars);
+    
     return sub;
 }
 
