@@ -1,5 +1,6 @@
 #include<iostream>
 #include<cstdlib>
+#include<cmath>
 
 using namespace std;
 
@@ -80,42 +81,13 @@ AltMoney subtract(AltMoney m1, AltMoney m2)
 {
     AltMoney sub;
 
-    //TODO: MAKE THIS MORE EFFICIENT (and make it actually work)
-    int left = (m1.cents/10) - 1;
-    int right = (m1.cents % 10) + 10;
-    
-    if( m1.cents % 10 < m2.cents % 10)
-    {
-        right = right - (m2.cents % 10);
-        if(m1.cents/10 < m2.cents/10)
-        {
-            if(m1.dollars)
-            {
-                m1.dollars -= 1;
-                left += 10; 
-            }
-            sub.cents = 10 * (left - (m2.cents/10));
-        }
-        sub.cents += right;
-    }
-    else if(m2.cents % 10 < m1.cents % 10)
-    {
-        left = (m2.cents/10) - 1;
-        right = right - (m1.cents % 10);
-        if(m2.cents/10 < m1.cents/10)
-        {
-            if(m2.dollars)
-            {
-                m2.dollars -= 1;
-                left += 10; 
-            }
-            sub.cents = 10 * (left - (m1.cents/10));
-        }
-        sub.cents += right;
-    }
+    double result = 0;
 
-    sub.dollars = abs(m1.dollars - m2.dollars);
+    result = abs((m1.dollars + ((double)m1.cents/100)) - (m2.dollars + ((double)m2.cents/100)));
     
+    sub.dollars = result;
+    sub.cents =  (result - (int)result) * 100;
+
     return sub;
 }
 
