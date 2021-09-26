@@ -80,14 +80,14 @@ AltMoney add(AltMoney m1, AltMoney m2)
 AltMoney subtract(AltMoney m1, AltMoney m2)
 {
     AltMoney sub;
-
-    double result = 0;
-
-    result = abs((m1.dollars + ((double)m1.cents/100)) - (m2.dollars + ((double)m2.cents/100)));
     
-    sub.dollars = result;
+    //converting the dollars and cents from both objects into one single double each and saving
+    //the result of the subtraction to result
+    double result = abs((m1.dollars + ((double)m1.cents/100)) - (m2.dollars + ((double)m2.cents/100)));
+    //converting the cents from double to int and saving them
     sub.cents =  (result - (int)result) * 100;
-
+    sub.dollars = result;
+    
     return sub;
 }
 
