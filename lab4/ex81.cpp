@@ -6,24 +6,24 @@ using namespace std;
 
 class AltMoney
 {
-    public:
-        AltMoney();
-        AltMoney(int d, int c);
-        friend AltMoney add(AltMoney m1, AltMoney m2);
-        friend AltMoney subtract(AltMoney m1, AltMoney m2);
-        void display_money();
-        void read_money();
-    private:
-        int dollars;
-        int cents;
+public:
+    AltMoney();
+    AltMoney(int d, int c);
+    friend AltMoney add(AltMoney m1, AltMoney m2);
+    friend AltMoney subtract(AltMoney m1, AltMoney m2);
+    void display_money();
+    void read_money();
+private:
+    int dollars;
+    int cents;
 };
-        
+
 int main()
 {
     int d, c;
     AltMoney m1, m2, dollarsAdded, dollarsSub;
 
-    dollarsAdded = AltMoney(0,0);
+    dollarsAdded = AltMoney(0, 0);
 
     m1.read_money();
     cout << "The first money is:";
@@ -38,7 +38,7 @@ int main()
     dollarsAdded.display_money();
 
     dollarsSub = subtract(m1, m2);
-    cout<<"The subtraction is: ";
+    cout << "The subtraction is: ";
     dollarsSub.display_money();
 
     return 0;
@@ -57,7 +57,7 @@ AltMoney::AltMoney(int d, int c)
 void AltMoney::display_money()
 {
     cout << "$" << dollars << ".";
-    if(cents <= 9)
+    if (cents <= 9)
         cout << "0";  //to display a 0 in the left for numbers less than 10
     cout << cents << endl;
 }
@@ -67,7 +67,7 @@ AltMoney add(AltMoney m1, AltMoney m2)
     AltMoney sum;
     int extra = 0;
     sum.cents = m1.cents + m2.cents;
-    if(sum.cents >= 100)
+    if (sum.cents >= 100)
     {
         sum.cents = sum.cents - 100;
         extra = 1;
@@ -80,14 +80,14 @@ AltMoney add(AltMoney m1, AltMoney m2)
 AltMoney subtract(AltMoney m1, AltMoney m2)
 {
     AltMoney sub;
-    
+
     //converting the dollars and cents from both objects into one single double each and saving
     //the result of the subtraction to result
-    double result = abs((m1.dollars + ((double)m1.cents/100)) - (m2.dollars + ((double)m2.cents/100)));
+    double result = abs((m1.dollars + ((double)m1.cents / 100)) - (m2.dollars + ((double)m2.cents / 100)));
     //converting the cents from double to int and saving them
-    sub.cents =  (result - (int)result) * 100;
+    sub.cents = (int)((result - trunc(result)) * 100);
     sub.dollars = result;
-    
+
     return sub;
 }
 
@@ -97,7 +97,7 @@ void AltMoney::read_money()
     cin >> dollars;
     cout << "Enter cents \n";
     cin >> cents;
-    if( dollars < 0 || cents < 0)
+    if (dollars < 0 || cents < 0)
     {
         cout << "Invalid dollars and cents, negative values\n";
         exit(1);
