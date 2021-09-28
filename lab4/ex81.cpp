@@ -1,3 +1,12 @@
+/*---------------------------------------
+|Luisel A. Muller Rodriguez 
+|#S01394043
+|This program takes 2 amounts of money
+|as input from the user and then displays
+|the sum and subtraction. It also outputs
+|if money 1 is greater, less or equal
+|to money 2.
+|--------------------------------------*/
 #include<iostream>
 #include<cstdlib>
 #include<cmath>
@@ -22,8 +31,6 @@ int main()
 {
     int d, c;
     AltMoney m1, m2, dollarsAdded, dollarsSub;
-
-    dollarsAdded = AltMoney(0, 0);
 
     m1.read_money();
     cout << "The first money is:";
@@ -84,8 +91,10 @@ AltMoney subtract(AltMoney m1, AltMoney m2)
     //converting the dollars and cents from both objects into one single double each and saving
     //the result of the subtraction to result
     double result = abs((m1.dollars + ((double)m1.cents / 100)) - (m2.dollars + ((double)m2.cents / 100)));
-    //converting the cents from double to int and saving them
-    sub.cents = (int)((result - trunc(result)) * 100);
+    //if cents are .569 the result will stay at .56 instead of .57 so this if statement makes the adjustment
+    //trunc() - if we have 3.4 then trunc(3.4) will return 3
+    sub.cents = (int)((result - trunc(result)) * 1000) % 10 >= 5 ? (int)((result - trunc(result)) * 100) + 1 
+                : (int)((result - trunc(result)) * 100) ;
     sub.dollars = result;
 
     return sub;
