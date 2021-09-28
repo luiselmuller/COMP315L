@@ -3,7 +3,9 @@
 |#S01394043
 |This program takes 2 amounts of money
 |as input from the user and then displays
-|the sum and subtraction.
+|the sum and subtraction. It also outputs
+|if money 1 is greater, less or equal
+|to money 2.
 |--------------------------------------*/
 #include<iostream>
 #include<cstdlib>
