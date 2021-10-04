@@ -1,5 +1,11 @@
-// P84.cpp - This program is a driver written to demonstrate how we can use a
-// class inside another one.
+/*---------------------------------------
+|Luisel A. Muller Rodriguez 
+|#S01394043
+|This program asks for info about loans
+|and then displays the info and if the
+|loans are equal or not.
+|--------------------------------------*/
+
 #include<iostream>
 using namespace std;
 
@@ -9,6 +15,7 @@ class ID
       ID();
       ID(int, int, int);
       void display();
+      int sumID(); //used to sum up the id sides
    private:
       int left;
       int middle;
@@ -23,6 +30,7 @@ class Loan  // Loan is called structure tag
       void set();
       float payment();
       void display();
+      int getID(); //used to get the sum of the id sides
       friend bool operator == (Loan ma, Loan mb);
    private:
       ID id;  // assume an unique integer between 1111-9999
@@ -42,12 +50,12 @@ int main()
    loan2.set(); // set the values
    cout << "Display loan2 \n";
    loan2.display();
-
+   
    if(loan1 == loan2)
     cout<<"The loans are equal";
    else
     cout<<"The loans are not equal";
-
+   
    return 0;
 }
 
@@ -66,6 +74,14 @@ ID::ID(int l, int m, int r)
 void ID::display()
 {
    cout << left << "-" << middle << "-" << right << endl;
+}
+
+//we sum the three parts of the id because if loan1 id = 154-45-2137 the result is 2336
+//and loan2 id = 475-23-2374 the result is 2872 and 2336 != 2872.
+//if loan1 id and loan2 id is 253-65-3243 the result is 3561 and 3561 == 3561
+int ID::sumID()
+{
+   return right + left + middle;
 }
 
 Loan::Loan()
@@ -113,7 +129,15 @@ void Loan::display()
    cout << term << endl;
 }
 
+//overloading the == operator to be able to compare loan objects
 bool operator == (Loan ma, Loan mb)
 {
-    return /*TODO:comparar los id*/ma.amount == mb.amount && ma.rate == mb.rate && ma.term == mb.term ? true : false;
+   
+    return ma.getID() == mb.getID() && ma.amount == mb.amount && ma.rate == mb.rate && ma.term == mb.term ? true : false;
+}
+
+//gets the id sum from the id object
+int Loan::getID()
+{
+   return id.sumID();
 }

@@ -1,6 +1,11 @@
-// P83.cpp - This program adds money of two different people
-// It reads the amounts for two people from an
-// input file in_file.dat and writes the result into a file out_file.dat
+/*---------------------------------------
+|Luisel A. Muller Rodriguez 
+|#S01394043
+|This program reads 4 integers from a 
+|file (dollars and cents of 2 amounts
+|of money), and then outputs to another
+|file information about these amounts.
+|--------------------------------------*/
 
 #include<iostream>
 #include<cstdlib>
@@ -31,9 +36,10 @@ int main()
 
     get_streams(ins, ous);
 
+    //inputting the information to the object with the overloaded operator
     ins>>m1;
     ous << "The first money is:";
-    ous<<m1;
+    ous<<m1; //outputting information from the object to a .dat file directly with the overloaded operator
 
     ins>>m2;
     ous << "The second money is:";
@@ -53,6 +59,7 @@ AltMoney::AltMoney()
 {
 }
 
+//overloading the << operator so that we can directly use it to output the object information
 ofstream& operator <<(ofstream& ous, AltMoney m)
 {
     ous << "$" << m.dollars << ".";
@@ -76,6 +83,7 @@ AltMoney operator +(AltMoney m1, AltMoney m2)
     return temp;
 }
 
+//overloading the >> operator so that we can directly use it to input the object information
 istream& operator >>(istream& ins, AltMoney& m)
 {
     int d, c;
