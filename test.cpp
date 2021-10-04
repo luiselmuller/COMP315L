@@ -3,12 +3,11 @@
 
 using namespace std;
 
+double power(double x, int m);
+
 int main() 
 {
 
-    int n = 83;
-
-    cout << n / 10 << " " << (n % 10);
-
     return 0;
 }
+
