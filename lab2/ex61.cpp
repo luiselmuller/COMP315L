@@ -36,15 +36,12 @@ int main( )
     cout << "The monthly payment for loan ID[" << loan1.ID << "] is: " << loan1.monthly_payment << endl;
     cout << "The monthly payment for loan ID[" << loan2.ID << "] is: " << loan2.monthly_payment << endl;
 
-    //so the program doesn't end and close after displaying
-    system("pause");
     return 0;
 }
 
 void initialize_loan(Loan &loan)
 {
-    for(int i = 1; i < 2; i++)
-    {
+
     // Initialize the loan1 structure
     cout << "Enter the ID of the loan: ";
     cin >> loan.ID;
@@ -61,7 +58,6 @@ void initialize_loan(Loan &loan)
     cout << "Enter the term (number of months, length of loan): ";
     cin >> loan.term;
     cout  << "\n";
-    }
 
 }
 float payment(Loan &l)

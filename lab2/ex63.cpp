@@ -42,8 +42,6 @@ int main()
     cout<<"Loan 2 information";
     loan2.display();
     
-    //so the program doesn't end and close after displaying
-    system("pause");
     return 0;
 }
 
