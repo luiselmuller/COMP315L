@@ -5,6 +5,7 @@
         "iomanip": "cpp",
         "cmath": "cpp",
         "xiosbase": "cpp",
-        "iosfwd": "cpp"
+        "iosfwd": "cpp",
+        "ostream": "cpp"
     }
 }
