@@ -99,7 +99,6 @@ Loan::Loan(ID I, float am, float rt, int trm)
 void Loan::set()
 {
    int l, m, r;
-   ID temp_id;
    // Initialize the loan1 object
    cout << "Enter the left part of the loan ID \n";
    cin >> l;
