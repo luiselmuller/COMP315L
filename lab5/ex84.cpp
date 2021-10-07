@@ -131,7 +131,6 @@ void Loan::display()
 //overloading the == operator to be able to compare loan objects
 bool operator == (Loan ma, Loan mb)
 {
-   
     return ma.getID() == mb.getID() && ma.amount == mb.amount && ma.rate == mb.rate && ma.term == mb.term ? true : false;
 }
 

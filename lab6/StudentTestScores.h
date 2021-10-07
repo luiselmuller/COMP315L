@@ -36,9 +36,10 @@ public:
 	StudentTestScore(const StudentTestScore& obj)
 	{
 		// PLACE YOU CODE HERE
-        int size = obj.size;
-        testScores = new double[size];
-        testScores = obj.testScores;
+        int size = obj.getNumTestScores();
+        testScores = new double[size + 1];
+		for(int i = 0; i < size; i++)
+        	testScores[i] = *obj.testScores[i];
 	}
 
 	// Destructor
@@ -85,6 +86,10 @@ public:
 	const StudentTestScore operator=(const StudentTestScore& right)
 	{ 
 		// PLACE YOU CODE HERE
+		int size = right.getNumTestScores();
+        testScores = new double[size + 1];
+		for(int i = 0; i < size; i++)
+        	testScores[i] = right.testScores[i];
 	}
 };
 #endif

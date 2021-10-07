@@ -5,6 +5,10 @@
         "iomanip": "cpp",
         "cmath": "cpp",
         "xiosbase": "cpp",
-        "iosfwd": "cpp"
+        "iosfwd": "cpp",
+        "initializer_list": "cpp",
+        "type_traits": "cpp",
+        "xstring": "cpp",
+        "xutility": "cpp"
     }
 }
