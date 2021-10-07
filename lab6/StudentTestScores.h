@@ -36,9 +36,12 @@ public:
 	StudentTestScore(const StudentTestScore& obj)
 	{
 		// PLACE YOU CODE HERE
-        int size = obj.getNumTestScores();
-        testScores = new double[size + 1];
-		for(int i = 0; i < size; i++)
+		//we define the size of the new array as the size of the argument objects array size, then we create
+		//the new array with that size and initialize the data in the new array with the data of the other 
+		//objects array
+        numTestScores = obj.numTestScores;
+        testScores = new double[numTestScores];
+		for(int i = 0; i < numTestScores; i++)
         	testScores[i] = obj.testScores[i];
 	}
 
@@ -86,9 +89,12 @@ public:
 	const StudentTestScore operator=(const StudentTestScore& right)
 	{ 
 		// PLACE YOU CODE HERE
-		int size = right.getNumTestScores();
-        testScores = new double[size + 1];
-		for(int i = 0; i < size; i++)
+		//using copy constructor since it's the same process
+		if(this == &right)
+			return *this;
+		numTestScores = right.numTestScores;
+		testScores = new double[numTestScores];
+		for(int i = 0; i < numTestScores; i++)
         	testScores[i] = right.testScores[i];
 	}
 };
