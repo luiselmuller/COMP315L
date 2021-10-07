@@ -39,7 +39,7 @@ public:
         int size = obj.getNumTestScores();
         testScores = new double[size + 1];
 		for(int i = 0; i < size; i++)
-        	testScores[i] = *obj.testScores[i];
+        	testScores[i] = obj.testScores[i];
 	}
 
 	// Destructor
