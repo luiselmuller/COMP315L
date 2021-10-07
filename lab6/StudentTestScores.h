@@ -50,7 +50,7 @@ public:
 	~StudentTestScore()
 	{
 		// PLACE YOU CODE HERE
-        delete testScores;
+        delete [] testScores;
 	}
 
 	// The setTestScore function sets a specific
@@ -84,14 +84,22 @@ public:
 		return testScores[index];
 	}
 
+	//Displays a students information
+	void displayStudent()
+	{
+		cout << "Name: " << studentName << "\n";
+		cout << "Test Scores: ";
+		for (int i = 0; i < numTestScores; i++)
+			cout << testScores[i] << " ";
+		cout << "\n";
+	}
+	
 	// Overloaded = operator
 	// YOU MUST IMPLEMENT THIS FUNCTION
 	const StudentTestScore operator=(const StudentTestScore& right)
 	{ 
 		// PLACE YOU CODE HERE
-		//using copy constructor since it's the same process
-		if(this == &right)
-			return *this;
+		//same process as in the copy constructor
 		numTestScores = right.numTestScores;
 		testScores = new double[numTestScores];
 		for(int i = 0; i < numTestScores; i++)

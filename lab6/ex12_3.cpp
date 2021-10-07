@@ -23,10 +23,21 @@ int main()
 	// Assign the student1 object to student2
 	student2 = student1;
 
+	StudentTestScore student3("Some student", 6);
+	student3.setTestScore(100.0, 0);
+	student3.setTestScore(95.0, 1);
+	student3.setTestScore(90, 2);
+	student3.setTestScore(60, 3);
+	student3.setTestScore(93, 4);
+
+	student3 = student2;
 	// Display both objects. They should
 	// contain the same data.
-	displayStudent(student1);
-	displayStudent(student2);
+	student1.displayStudent();
+	student2.displayStudent();
+	student3.displayStudent();
+	//replaced displayStudent(student1); and displayStudent(student2); with a function defined inside of the class
+	//since displayStudent() was not displaying the names properly
 	return 0;
 }
 
