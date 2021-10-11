@@ -40,6 +40,7 @@ public:
 		//the new array with that size and initialize the data in the new array with the data of the other 
 		//objects array
         numTestScores = obj.numTestScores;
+		studentName = obj.studentName;
         testScores = new double[numTestScores];
 		for(int i = 0; i < numTestScores; i++)
         	testScores[i] = obj.testScores[i];
@@ -84,24 +85,17 @@ public:
 		return testScores[index];
 	}
 
-	//Displays a students information
-	void displayStudent()
-	{
-		cout << "Name: " << studentName << "\n";
-		cout << "Test Scores: ";
-		for (int i = 0; i < numTestScores; i++)
-			cout << testScores[i] << " ";
-		cout << "\n";
-	}
-	
 	// Overloaded = operator
 	// YOU MUST IMPLEMENT THIS FUNCTION
 	const StudentTestScore operator=(const StudentTestScore& right)
 	{ 
 		// PLACE YOU CODE HERE
 		//same process as in the copy constructor
+		if(this == &right) //if equal returns the value of the left side
+			return *this;
 		numTestScores = right.numTestScores;
 		testScores = new double[numTestScores];
+		studentName = right.studentName;
 		for(int i = 0; i < numTestScores; i++)
         	testScores[i] = right.testScores[i];
 	}

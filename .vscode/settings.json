@@ -9,6 +9,11 @@
         "initializer_list": "cpp",
         "type_traits": "cpp",
         "xstring": "cpp",
-        "xutility": "cpp"
+        "xutility": "cpp",
+        "xlocale": "c",
+        "xlocmon": "c",
+        "xlocnum": "c",
+        "xloctime": "c",
+        "ios": "cpp"
     }
 }
