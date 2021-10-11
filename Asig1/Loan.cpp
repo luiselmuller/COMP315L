@@ -3,7 +3,6 @@
 #include <iostream>
 
 using namespace std;
-
 Loan::Loan()   
 {   
 }   
@@ -48,3 +47,4 @@ void Loan::display()
     cout << amount << endl;   
     cout << rate << endl;   
     cout << term << endl;   
+}

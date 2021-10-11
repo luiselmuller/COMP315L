@@ -1,3 +1,10 @@
+/*---------------------------------------
+|Luisel A. Muller Rodriguez 
+|#S01394043
+|This Class contains functions used to 
+|create and manage objects that store 
+|student information.
+|--------------------------------------*/
 #ifndef STUDENTTESTSCORES_H
 #define STUDENTTESTSCORES_H
 

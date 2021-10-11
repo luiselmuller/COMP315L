@@ -1,8 +1,7 @@
 #ifndef Loan_H
-#define Loan_H
+#define Loan_H 
 
 #include "ID.h"
-#include "Loan.cpp"
 
 class Loan  // Loan class definition   
 {   

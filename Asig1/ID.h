@@ -1,8 +1,6 @@
 #ifndef ID_H
 #define ID_H
 
-#include "ID.cpp"
-
 class ID   
 {   
     public:   
