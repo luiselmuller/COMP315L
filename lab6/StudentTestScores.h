@@ -43,13 +43,10 @@ public:
 	StudentTestScore(const StudentTestScore& obj)
 	{
 		// PLACE YOU CODE HERE
-		//we define the size of the new array as the size of the argument objects array size, then we create
-		//the new array with that size and initialize the data in the new array with the data of the other 
-		//objects array
-        numTestScores = obj.numTestScores;
-		studentName = obj.studentName;
-        testScores = new double[numTestScores];
-		for(int i = 0; i < numTestScores; i++)
+        numTestScores = obj.numTestScores; 		//assigns a new array size
+		studentName = obj.studentName;	   		//copies the student name
+        testScores = new double[numTestScores]; //creates new array with the new size
+		for(int i = 0; i < numTestScores; i++)  //copies the values from the other objects array to this array
         	testScores[i] = obj.testScores[i];
 	}
 
@@ -97,14 +94,16 @@ public:
 	const StudentTestScore operator=(const StudentTestScore& right)
 	{ 
 		// PLACE YOU CODE HERE
-		//same process as in the copy constructor
-		if(this == &right) //if equal returns the value of the left side
+
+		//if equal returns the value of the left side
+		if(this == &right) 		
 			return *this;
-		numTestScores = right.numTestScores;
-		testScores = new double[numTestScores];
-		studentName = right.studentName;
-		for(int i = 0; i < numTestScores; i++)
-        	testScores[i] = right.testScores[i];
+			
+		numTestScores = right.numTestScores; 	//assigns a new array size
+		studentName = right.studentName;  		//copies the student name
+		testScores = new double[numTestScores];	//creates new array with the new size
+		for(int i = 0; i < numTestScores; i++)  //copies the values from the other objects array to this array
+        	testScores[i] = right.testScores[i]; 
 	}
 };
 #endif
