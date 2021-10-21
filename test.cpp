@@ -25,17 +25,31 @@ public:
 	}
 	};
 
-int main()
-{
-	Test t1, t2;
-	Test t3;
-	t3.print();
 
-	t1 += t2;
+    int main()  
+    {  
+        int   var;  
+        int   count;  
+        float salary;  
+          
+        int    *varptr;     // declare a pointer variable to an integer  
+        int    *countptr;   // declare a pointer variable to an integer  
+        float  *salaryptr;  // declare a pointer variable to a float  
+      
+        varptr = &count;  
+        countptr = &var; 
+        salaryptr = &salary; 
+      
+        *varptr = 6;  
+        *countptr = 980;  
+        *salaryptr = 3200;  
+      
+        cout << var << endl;  
+        cout << count << endl;  
+        cout << salary << endl;  
+      
+       return 0;  
+    }  
 
-	t1.print();
-
-	return 0;
-}
 
 
