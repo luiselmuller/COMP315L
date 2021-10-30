@@ -10,13 +10,45 @@
 
 #include <iostream>
 #include <string>
-#include "Header.h" 
+#include "Pair.h" 
 
 using namespace std;
 
 
 int main()
 {
+    //variables used to store user input
+    double gp1, gp2;
+    string np1, np2;
+
+    //pair objects
+    Pair<double> grades;
+    Pair<string> names;
+
+    //asks for user input
+    cout << "Enter the first value of the grades pair: ";
+    cin >> gp1;
+    grades.set_element(1, gp1);
+    cout << endl;
+    cout << "Enter the second value of the grades pair: ";
+    cin >> gp2;
+    grades.set_element(2, gp2);
+    cout << endl;
+
+    cout << "Enter the first value of the names pair: "; 
+    cin >> np1;
+    names.set_element(1, np1);
+    cout << endl;
+    cout << "Enter the second value of the names pair: ";
+    cin >> np2;
+    names.set_element(2, np2);
+
+    //displays the pairs
+    grades.display_pairs();
+    names.display_pairs();
+
+
+    /* Class Tests
     //Pairs initialized with constructor
     Pair<double> gradesP1(93.5, 78.9);
     Pair<string> namesP1("Tom", "Martha");
@@ -47,7 +79,7 @@ int main()
     //Displays the values of the third pairs
     cout << gradesP3.get_element(1) << " - " << gradesP3.get_element(2) << "\n"; //Expected output: 89 - 78.9
     cout << namesP3.get_element(1) << " - " << namesP3.get_element(2) << "\n"; //Expected output: Carl - Sam
-
+    */
     return 0;
 
 }
