@@ -202,7 +202,7 @@ void IntSLList<T>::deleteFromTail()
 
 	//iterating through the list to find the last node
 	while (endNode->getNext() != NULL)
-	{
+	{ 
 		temp = endNode;					//second to last node
 		endNode = endNode->getNext();	//last node
 	}
