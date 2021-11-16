@@ -245,13 +245,13 @@ void circDLList<T>::deleteFromTail()
 	//if the node is the only one in the list
 	if (head->getNext() == head)
 	{
-		head = last = NULL;
+		head = last = NULL;		//both head and tail are NULL
 	}
 	else
 	{
-		last = last->getPrev();
-		head->setPrev(last);
-		last->setNext(head);
+		last = last->getPrev();	//makes the second to last node the new tail
+		head->setPrev(last);	//sets the heads next to the new tail
+		last->setNext(head);	//sets the new tails next to the head
 	}
-	delete temp;
+	delete temp;	//deletes the previous tail
 }
