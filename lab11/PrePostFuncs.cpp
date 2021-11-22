@@ -30,7 +30,7 @@ string infpos(string inf)
 {
     //Creating the stack that will be used to store operators
     stack<char> stackp;
-
+   
     string post = "";   //Used to store the result (the converted expression).
    
     //Iterates through the infix expression.
@@ -141,13 +141,15 @@ string infpre(string inf)
 * @param:
 *	   string pos -> The postfix expression to be evaluated.
 * 
-* Tested with expression: 83/2^37+52^*+
-* Output: 254
+* Tested with expressions: 2 20 * 2 / 3 4 + 3 2 ^ * + 6 - 15 +
+* and 78 30 0.5 28 8 + * - 6 / +
+* Output: first one is equal to 92
+*         and the second one to 80
 *************************************************************/
-int evalpos(string pos)
+double evalpos(string pos)
 {
     //Creating the stack.
-    stack<int> stacke;
+    stack<double> stacke;
 
     /***************************************
     * Variables:
@@ -160,14 +162,13 @@ int evalpos(string pos)
     *                    digits it's stored 
     *                    in this variable.
     ***************************************/
-    int o1, o2;
+    double o1, o2;
+    string operand;
     
     //Iterating through the postfix expression.
     for (int i = 0; i < (int)pos.length(); i++)
     {
-        //If the character is a space then it continues to the next one
         if (pos[i] == ' ') continue;
-
         /********************************************************************************
         * If the current character is an operator then 'o1' is assigned the 
         * element at the top of the stack and then it's popped, 'o2' is assgined
@@ -178,6 +179,7 @@ int evalpos(string pos)
         ********************************************************************************/
         if (isOperator(pos[i]))
         {
+ 
             o1 = stacke.top();
             stacke.pop();
 
@@ -188,16 +190,23 @@ int evalpos(string pos)
         }
         else
         {
-            /*************************************************************************************************
-            * Here we're converting a character to integer and pushing it to the stack, so we
-            * need to subtract '0' to convert the ASCII character to the numeric values.
-            * Here we are basically subtracting the character to the character 0, which
-            * has a value of 48 ('0' == 48). ex '1' - 48 == 1 since '1' == 49.
-            * 
-            * More information on how this works is available at:
-            * https://stackoverflow.com/questions/3195028/please-explain-what-this-code-is-doing-somechar-48
-            **************************************************************************************************/
-            stacke.push((int)pos[i] - '0');
+            //The character is added to operand, this helps when an operand is 2 digits or more
+            operand += pos[i];
+
+            if (pos[i + 1] == ' ')
+            {
+                /*************************************************************************************************
+                * Here we're converting a character to integer and pushing it to the stack, so we
+                * need to subtract '0' to convert the ASCII character to the numeric values.
+                * Here we are basically subtracting the character to the character 0, which
+                * has a value of 48 ('0' == 48). ex '1' - 48 == 1 since '1' == 49.
+                *
+                * More information on how this works is available at:
+                * https://stackoverflow.com/questions/3195028/please-explain-what-this-code-is-doing-somechar-48
+                **************************************************************************************************/
+                stacke.push(stod(operand));   //stod(operand) is converting operand from string to double
+                operand = " ";                //Setting operand to to be empty
+            }
         }
     }
     //Returning the result.
@@ -280,9 +289,9 @@ string eprint(string e, int s)
 * time. The result is stored in r and then returned. 
 * Else it will return 0.
 ****************************************************************/
-int solve(char op, int o1, int o2)
+double solve(char op, double o1, double o2)
 {
-    int r;
+    double r;
     switch (op)
     {
         case '+':
@@ -298,7 +307,7 @@ int solve(char op, int o1, int o2)
             r = o2 / o1;
             break;
         case '^':
-            r = (int)pow(o2, o1);
+            r = (double)pow(o2, o1);
             break;
         default:
             r = 0;

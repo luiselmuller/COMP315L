@@ -38,7 +38,7 @@ std::string infpre(std::string inf);
 * 
 * Returns the result of the evaluation as a string.
 *************************************************************/
-int evalpos(std::string pos);
+double evalpos(std::string pos);
 
 /******************************************************
 * Function used to check the presedence of an operator
@@ -86,6 +86,6 @@ std::string eprint(std::string e, int s);
 *
 * Returns the result as an integer value.
 ****************************************************************/
-int solve(char op, int o1, int o2);
+double solve(char op, double o1, double o2);
 
 #endif

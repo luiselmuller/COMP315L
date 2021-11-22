@@ -5,8 +5,6 @@
 * -------------------------------------------------------------------
 * Description: This program lets the user choose to convert
 * infix to postfix, infix to prefix or evaluate a postfix expression.
-* **NOTE: If an operand is for example 18 and others are similar
-*         the results will not be accurate.
 *********************************************************************/
 #include <iostream>
 #include <string>
@@ -37,16 +35,16 @@ int main()
     do
     {
         //Menu to allow the user to pick a choice.
-        cout<<"\n================================\n"
-                "       Postfix Evaluator\n"
-                "Enter a number to make a choice.\n"
-                "--------------------------------\n"
-                " (characters like '[' or '{' \n"
-                "   will not work too well.)\n"
-            "================================\n\n"
-            "1. Convert Infix to Postfix\n"
-            "2. Convert Infix to Prefix\n"
-            "3. Evaluate a Postfix expression\n>";
+        cout<<"\n========================================================\n"
+                "                   Postfix Evaluator\n"
+                "           Enter a number to make a choice.\n"
+                "--------------------------------------------------------\n"
+                "(characters like '[' or '{' will not work but doubles   \n"
+                " will work as well as operands with more than one digit)\n"
+                "========================================================\n\n"
+                "1. Convert Infix to Postfix\n"
+                "2. Convert Infix to Prefix\n"
+                "3. Evaluate a Postfix expression\n>";
         cin>>choice; //Reading the users input for the choice.
 
         //If the choice is not one that is on the menu the user is asked to enter it again
@@ -106,7 +104,7 @@ int main()
                 *  entered it gets evaluated and then printed out to the console.
                 **********************************************************************************************/
                 case 3:
-                    cout << "Enter the postfix expression: ";
+                    cout << "Enter the postfix expression (use spaces to separate operands): ";
                     cin.ignore();
                     //Getting rid of the extra characters left from cin.
                     getline(cin, post);
