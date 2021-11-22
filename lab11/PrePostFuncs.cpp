@@ -153,7 +153,7 @@ double evalpos(string pos)
 
     /***************************************
     * Variables:
-    *     Integers:
+    *     Doubles:
     *         o1  -> Stores an operand.
     *         o2  -> Stores anoter operand.
     *     Strings:
@@ -168,7 +168,7 @@ double evalpos(string pos)
     //Iterating through the postfix expression.
     for (int i = 0; i < (int)pos.length(); i++)
     {
-        if (pos[i] == ' ') continue;
+        if (pos[i] == ' ') continue; //If pos[i] is a space with continue to the next value.
         /********************************************************************************
         * If the current character is an operator then 'o1' is assigned the 
         * element at the top of the stack and then it's popped, 'o2' is assgined
@@ -190,22 +190,18 @@ double evalpos(string pos)
         }
         else
         {
-            //The character is added to operand, this helps when an operand is 2 digits or more
+            //The character is added to operand, this helps when an operand is 2 digits or more.
             operand += pos[i];
 
             if (pos[i + 1] == ' ')
             {
                 /*************************************************************************************************
-                * Here we're converting a character to integer and pushing it to the stack, so we
-                * need to subtract '0' to convert the ASCII character to the numeric values.
-                * Here we are basically subtracting the character to the character 0, which
-                * has a value of 48 ('0' == 48). ex '1' - 48 == 1 since '1' == 49.
-                *
-                * More information on how this works is available at:
-                * https://stackoverflow.com/questions/3195028/please-explain-what-this-code-is-doing-somechar-48
+                * Here the operand is pushed to the stack after being converted from string to double and then
+                * the operand variable is reset back to an empty string so that it's ready to store another
+		* operand.
                 **************************************************************************************************/
-                stacke.push(stod(operand));   //stod(operand) is converting operand from string to double
-                operand = " ";                //Setting operand to to be empty
+                stacke.push(stod(operand));   //stod(operand) is converting operand from string to double.
+                operand = " ";                //Setting operand to to be empty before moving on to the next one.
             }
         }
     }
@@ -242,9 +238,9 @@ bool isOperator(char o)
 * as 's'.
 * @param:
 *      string e -> The string to be printed or reversed.
-*	   int s	-> Used to decide whether to reverse the string or
-*				   not, if its value is 1 it will be reversed,
-*				   otherwise the string will be kept the same.
+*      int s	-> Used to decide whether to reverse the string or
+*		   not, if its value is 1 it will be reversed,
+*	           otherwise the string will be kept the same.
 ********************************************************************/
 string eprint(string e, int s)
 {

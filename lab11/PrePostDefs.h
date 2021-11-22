@@ -36,7 +36,7 @@ std::string infpre(std::string inf);
 * @param:
 *	   string pos -> The postfix expression to be evaluated.
 * 
-* Returns the result of the evaluation as a string.
+* Returns the result of the evaluation as a double.
 *************************************************************/
 double evalpos(std::string pos);
 
@@ -80,11 +80,11 @@ std::string eprint(std::string e, int s);
 /****************************************************************
 * Helps solve operations when evaluating a postfix expression.
 * @params:
-*      o1 -> An operand.
-*      o2 -> The other operand.
-*      op -> The operator used in the operation.
+*      double o1 -> An operand.
+*      double o2 -> The other operand.
+*      char op -> The operator used in the operation.
 *
-* Returns the result as an integer value.
+* Returns the result as an double value.
 ****************************************************************/
 double solve(char op, double o1, double o2);
 
