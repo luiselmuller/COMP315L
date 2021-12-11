@@ -17,9 +17,8 @@
  * 
  * || CONSTRUCTORS ||
  * +Patient() -> Empty/default constructor.
- * +Patient(name, lastNames, age, birthday, visits, turns) -> Constructor
- *  used to create a patient object with all of the patients personal
- *  information.
+ * +Patient() -> Constructor used to create a patient object with all of 
+ * the patients personalinformation.
  * 
  * || GETTER FUNCTIONS ||
  * +getName()      -> Returns a string that contains the name of the patient.
@@ -28,7 +27,6 @@
  *                   single string and returns it.
  * +getBirthday()  -> Returns a string containing the patients birthday.
  * +getAge() -> Returns the patients age as an integer value.
- * +generateID()   -> Gives the patient a unique ID, doesn't return a value.
  * +getTurns()     -> Returns the patients turns as an integer.
  * +getVisits()    -> Returns the patients visits as an integer.
  * 
@@ -62,17 +60,17 @@ class Patient
     public:
         /* Constructors */
         Patient();
-        Patient(std::string name, std::string lastNames, int age, std::string birthday, int visits, int turns);
-        
+
         /* Getters */
         std::string getName();
         std::string getLastNames();
         std::string getFullName();
         std::string getBirthday();
-        int getAge();
-        void generateID();
+        std::string getAge();
+        
         int getTurns();
         int getVisits();
+        int getID();
 
         /* Setters */
         void setName(std::string n);
@@ -81,11 +79,14 @@ class Patient
         void setBirthday(std::string bd);
         void setVisits(int v);
         void setTurns(int t);
+        void setID(int id);
+        
+        
 
 
     private:
-    std::string name, lastNames, birthday, age;
-    int visits, turns, ID;
-}
+        std::string name, lastNames, birthday, age;
+        int visits = 0, turns = 0, ID = 0;
+};
 
 #endif
