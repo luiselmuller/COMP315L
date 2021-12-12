@@ -67,7 +67,8 @@ class Patient
         std::string getFullName();
         std::string getBirthday();
         std::string getAge();
-        
+        std::string getSymp();
+
         int getTurns();
         int getVisits();
         int getID();
@@ -81,11 +82,15 @@ class Patient
         void setTurns(int t);
         void setID(int id);
         
+        void setSymp(std::string s);
         
+
+        /* Other */
+      
 
 
     private:
-        std::string name, lastNames, birthday, age;
+        std::string name, lastNames, birthday, age, symptoms;
         int visits = 0, turns = 0, ID = 0;
 };
 

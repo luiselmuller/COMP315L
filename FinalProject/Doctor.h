@@ -19,18 +19,17 @@ class Doctor
 		Doctor(std::string n);
 		void addPatient();
 		//void addPhcsRecord();
-		void patientInSystem(int pid);
+		int patientLogin(int pid);
 		//void findPatient();	//MIGHT CHANGE FROM VOID TO SOMETHING ELSE
 		//void findPhysician();
 		void displayPatients();
 		//void printInvoice(int id);
 		//void changeTurn(int id);
-		//void setSymp(std::string s);
-		//std::string getSymp();
+		
 
 
 	private:
-		std::string name;// , symptoms;
+		std::string name;;
 
 
 };

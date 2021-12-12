@@ -20,9 +20,9 @@ int main()
     *  Variables:
     *
     */
-    int choice = -1;
+    int choice = -1, pschoice = -1;
     char ec;
-    string pschoice, vpurpose;
+    
 
     Doctor doctor;
 
@@ -59,6 +59,8 @@ int main()
                     //record, find a patient or physician, find the patients visit history, display the patients 
                     //registered in the system or print an invoice that includes the details of the visit and service
                     //done. the doctor can also change the patients turn
+
+                    //NEEDS TO BE ABLE TO TAKE PATIENTS OUT OF QUEUE WHEN DOCTOR IS DONE ATTENDING THEM
                     doctor.displayPatients();
 
                 break;
@@ -70,7 +72,7 @@ int main()
 
                     //NEED TO ADD DASHBOARD OPTIONS TO CHANGE INFO AND MAKE IT LOOK BETTER
                     //ALSO NEEDS TO BE ABLE TO FIND PHYSICIANS AND SEE THEIR INVOICES
-                    //NEEDS TO BE ABLE TO WRITE DOWN SYMPTOMS
+                    
                     string ans;
                     int idLogin = -1;
 
@@ -85,10 +87,16 @@ int main()
                     {
                         cout << "\nEnter your ID: ";
                         cin >> idLogin;
-                        cin.ignore();
+                        
 
                     }
-                    doctor.patientInSystem(idLogin);
+                    pschoice = doctor.patientLogin(idLogin);
+                    switch (pschoice)
+                    {
+
+                    }
+                    
+
                     
 
                 break;

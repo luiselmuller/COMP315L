@@ -13,7 +13,8 @@
 
 Patient::Patient()
 {
-	std::cin.ignore();
+	
+
 	std::cout << "Enter the patients name: ";
 	getline(std::cin, name);
 	std::cout << "\n";
@@ -31,11 +32,9 @@ Patient::Patient()
 	getline(std::cin, birthday);
 	std::cout << "\n";
 
-	//should update automatically
-	std::cout << "Enter the amount of visits the patient has had: ";
-	std::cin >> visits;
-	std::cin.ignore();
-	std::cout << "\n";
+	std::cout << "Enter the patients symptoms: ";
+	getline(std::cin, symptoms);
+
 }
 
 std::string Patient::getName(){ return name; }
@@ -64,9 +63,12 @@ void Patient::setAge(std::string a){ age = a; }
 
 void Patient::setBirthday(std::string bd){ birthday = bd; }
 
-void Patient::setVisits(int v){ visits = v; }
+void Patient::setVisits(int v){ visits += v; } //FIX
 
 void Patient::setTurns(int t){ turns = t; }
 
 void Patient::setID(int id){ ID = id; }
 
+void Patient::setSymp(std::string s) { symptoms = s; }
+
+std::string Patient::getSymp() { return symptoms; }

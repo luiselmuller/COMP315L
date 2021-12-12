@@ -33,14 +33,16 @@ void Doctor::addPatient()
 	Patient patient;			//create patient	
 	patient.setID(idCount);		//setting ID
 	plist.push_back(patient);	//add them to the list
-	std::cout << "Successfully added the patient. ID - " << idCount;
+	std::cout << "Successfully added the patient. Patient ID = " << idCount;
 	idCount++;		//updating global id variable
 
 	
 }
 
-void Doctor::patientInSystem(int pid)
+int Doctor::patientLogin(int pid)
 {
+	int loginChoice = -1;
+
 	for (Patient n : plist)
 	{
 		if (pid == n.getID())
@@ -51,14 +53,26 @@ void Doctor::patientInSystem(int pid)
 			std::cout << "\n\n========================================================\n"
 						 "\t\t" << n.getFullName() << "'s Dashboard"
 						 "\n========================================================\n"
-						 "ID   - " << n.getID()       << "\n"
-				         "Name - " << n.getFullName() << "\n"
-						 "Age  - " << n.getAge()      << "\n"
-				         "# visits - " << n.getVisits() << "\n"
-						 "Turn - "	<< "\n"
-				         "Birthday - " << n.getBirthday() ;
+						 "ID   - "		<< n.getID()		<< "\n"
+				         "Name - "		<< n.getFullName()	<< "\n"
+						 "Age  - "		<< n.getAge()		<< "\n"
+				         "# visits - "	<< n.getVisits()	<< "\n"
+						 "Turn - "		<< n.getTurns()		<<"\n"
+				         "Birthday - "	<< n.getBirthday()	<<
+						 "\n========================================================\n"
+						 "\tPick an option from the menu below\n"
+						 "\n--------------------------------------------------------\n"
+						 "1. Edit patient information\n"
+						 "2. Find a Physician\n"
+						 "3. See previous Invoices\n"
+						 "0. Back\n>";
+
+			std::cin >> loginChoice;
+
+			n.setVisits(1); //adding one to the visit
 		}
 	}
+	return loginChoice;
 }
 
 void Doctor::displayPatients()
@@ -70,6 +84,3 @@ void Doctor::displayPatients()
 }
 
 
-//void Doctor::setSymp(std::string s) { symptoms = s; }
-
-//std::string Doctor::getSymp() { return symptoms; }
