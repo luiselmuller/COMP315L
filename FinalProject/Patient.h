@@ -68,29 +68,32 @@ class Patient
         std::string getBirthday();
         std::string getAge();
         std::string getSymp();
+        std::string getGend();
 
         int getTurns();
         int getVisits();
         int getID();
 
         /* Setters */
+        void setGend(std::string g); //NEED TO IMPLEMENT
         void setName(std::string n);
         void setLastNames(std::string ln);
         void setAge(std::string a);
         void setBirthday(std::string bd);
-        void setVisits(int v);
+        void updtVisits();
         void setTurns(int t);
         void setID(int id);
-        
+        //void setVisHis(std::string visit);
         void setSymp(std::string s);
         
 
         /* Other */
-      
+    
+        //void printVisHis();
 
 
     private:
-        std::string name, lastNames, birthday, age, symptoms;
+        std::string name, lastNames, birthday, age, gender, symptoms;
         int visits = 0, turns = 0, ID = 0;
 };
 

@@ -10,77 +10,66 @@
 #include <iostream>
 #include <string>
 #include "Doctor.h"
-#include <list>
-#include <queue>
 
-std::list<Patient> plist;
-std::queue<Patient> pqueue;
 
-int idCount = 000;
 
 Doctor::Doctor()
 {
-	//default values
+	std::cout << "Enter your name: ";
+	getline(std::cin, name);
+	std::cout << "\n";
+
+	std::cout << "Enter your last names: ";
+	getline(std::cin, lastNames);
+	std::cout << "\n";
 }
 
-Doctor::Doctor(std::string n)
+std::string Doctor::getName() { return name; }
+
+std::string Doctor::getLastNames() { return lastNames; }
+
+std::string Doctor::getFullName() { return name + " " + lastNames; }
+
+int Doctor::getID() { return ID;  }
+
+void Doctor::setName(std::string n) { name = n; }
+
+void Doctor::setLastNames(std::string ln) { lastNames = ln; }
+
+void Doctor::setID(int id) { ID = id; }
+
+//NEEDS FIX
+void Doctor::updatePatientInfo(Patient p)
 {
-	name = n;
-}
+	int infoToChange = -1;
+	std::string infVal = " ";
 
-void Doctor::addPatient()
-{
-	Patient patient;			//create patient	
-	patient.setID(idCount);		//setting ID
-	plist.push_back(patient);	//add them to the list
-	std::cout << "Successfully added the patient. Patient ID = " << idCount;
-	idCount++;		//updating global id variable
+	std::cout << "\n\n========================================================\n"
+		"\t\t" << p.getFullName() << "'s Information"
+		"\n========================================================\n"
+		"1. Name - " << p.getName() << "\n"
+		"2. Last Name - " << p.getLastNames() << "\n"
+		"3. Age  - " << p.getAge() << "\n"
+		"4. Number of visits - " << p.getVisits() << "\n"
+		"5. Birthday - " << p.getBirthday() <<
+		"0. Back "
+		"\n========================================================\n"
+		"\tPick an option from the menu above\n"
+		"\n--------------------------------------------------------\n"
+		">";
+	std::cin >> infoToChange;
+	std::cin.ignore();
 
-	
-}
-
-int Doctor::patientLogin(int pid)
-{
-	int loginChoice = -1;
-
-	for (Patient n : plist)
+	switch (infoToChange)
 	{
-		if (pid == n.getID())
-		{
-			std::cout << "\nPatient Found   ";
-			system("pause");
-			//patient dashboard
-			std::cout << "\n\n========================================================\n"
-						 "\t\t" << n.getFullName() << "'s Dashboard"
-						 "\n========================================================\n"
-						 "ID   - "		<< n.getID()		<< "\n"
-				         "Name - "		<< n.getFullName()	<< "\n"
-						 "Age  - "		<< n.getAge()		<< "\n"
-				         "# visits - "	<< n.getVisits()	<< "\n"
-						 "Turn - "		<< n.getTurns()		<<"\n"
-				         "Birthday - "	<< n.getBirthday()	<<
-						 "\n========================================================\n"
-						 "\tPick an option from the menu below\n"
-						 "\n--------------------------------------------------------\n"
-						 "1. Edit patient information\n"
-						 "2. Find a Physician\n"
-						 "3. See previous Invoices\n"
-						 "0. Back\n>";
-
-			std::cin >> loginChoice;
-
-			n.setVisits(1); //adding one to the visit
-		}
-	}
-	return loginChoice;
-}
-
-void Doctor::displayPatients()
-{
-	for (Patient n : plist)
-	{
-		std::cout  << "ID | " << n.getID() << " | Full Name | " << n.getFullName() << std::endl;
+		case 1:
+			std::cout << "Enter the new Name: ";
+			getline(std::cin, infVal);
+			p.setName(infVal);
+			break;
 	}
 }
+
+
 
 

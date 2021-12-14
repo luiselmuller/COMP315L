@@ -10,7 +10,7 @@
 
 #include <iostream>
 #include <string>
-#include "Doctor.h"
+#include "System.h"
 
 using namespace std;
 
@@ -24,7 +24,7 @@ int main()
     char ec;
     
 
-    Doctor doctor;
+    System system;
 
     do
     {
@@ -49,6 +49,7 @@ int main()
 
             switch(choice)
             {
+                //OPTION : MAKE A SYSTEM CLASS THAT HAS FUNCTIONS TO MANAGE PATIENTS AND HAVE DOCTOR CLASS INHERIT IT
                 /*********************************************************************************************
                 *  
                 *********************************************************************************************/
@@ -61,8 +62,25 @@ int main()
                     //done. the doctor can also change the patients turn
 
                     //NEEDS TO BE ABLE TO TAKE PATIENTS OUT OF QUEUE WHEN DOCTOR IS DONE ATTENDING THEM
-                    doctor.displayPatients();
+                    {
+                        string dans;
+                        int didLogin = -1; 
 
+                        cout << "Have you been registered in the system before? (yes/no)\n>";
+                        cin.ignore();
+                        getline(cin, dans);
+
+                        if (dans == "no" || dans == "n" || dans == "NO")
+                        {
+                            system.addDoctor();
+                        }
+                        else
+                        {
+                            cout << "\nEnter your ID: ";
+                            cin >> didLogin;
+                            system.doctorLogin(didLogin, system.findDoctor(didLogin));
+                        }
+                    }
                 break;
 
                 /**********************************************************************************************
@@ -73,30 +91,25 @@ int main()
                     //NEED TO ADD DASHBOARD OPTIONS TO CHANGE INFO AND MAKE IT LOOK BETTER
                     //ALSO NEEDS TO BE ABLE TO FIND PHYSICIANS AND SEE THEIR INVOICES
                     
+                {
                     string ans;
-                    int idLogin = -1;
+                    int pidLogin = -1;
 
                     cout << "Have you been registered in the system before? (yes/no)\n>";
                     cin.ignore();
                     getline(cin, ans);
                     if (ans == "no" || ans == "n" || ans == "NO")
                     {
-                        doctor.addPatient();
+                        system.addPatient();
                     }
                     else
                     {
                         cout << "\nEnter your ID: ";
-                        cin >> idLogin;
-                        
-
+                        cin >> pidLogin;
+                        system.patientLogin(pidLogin, system.findPatient(pidLogin));
                     }
-                    pschoice = doctor.patientLogin(idLogin);
-                    switch (pschoice)
-                    {
-
-                    }
+                }
                     
-
                     
 
                 break;

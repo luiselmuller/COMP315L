@@ -12,24 +12,26 @@
 ====================================================*/
 #include "Patient.h"
 
-class Doctor
+class Doctor 
 {
 	public:
 		Doctor();
 		Doctor(std::string n);
-		void addPatient();
-		//void addPhcsRecord();
-		int patientLogin(int pid);
-		//void findPatient();	//MIGHT CHANGE FROM VOID TO SOMETHING ELSE
-		//void findPhysician();
-		void displayPatients();
-		//void printInvoice(int id);
-		//void changeTurn(int id);
+		void updatePatientInfo(Patient p);
 		
+		/* Getters */
+		std::string getName();
+		std::string getLastNames();
+		std::string getFullName();
+		int getID();
 
-
+		/* Setters */
+		void setName(std::string n);
+		void setLastNames(std::string ln);
+		void setID(int id);
 	private:
-		std::string name;;
+		std::string name, lastNames, observations, treatment;
+		int ID = 0;
 
 
 };

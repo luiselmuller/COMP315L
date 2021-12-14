@@ -9,12 +9,11 @@
 
 #include <iostream>
 #include <string>
+#include <stack>
 #include "Patient.h"
 
 Patient::Patient()
 {
-	
-
 	std::cout << "Enter the patients name: ";
 	getline(std::cin, name);
 	std::cout << "\n";
@@ -28,24 +27,31 @@ Patient::Patient()
 	getline(std::cin, age);
 	std::cout << "\n";
 
+
 	std::cout << "Enter the patients birthday (dd/mm/yyyy): ";
 	getline(std::cin, birthday);
 	std::cout << "\n";
 
+	std::cout << "Enter the patients gender: ";
+	getline(std::cin, gender);
+	std::cout << "\n";
+
 	std::cout << "Enter the patients symptoms: ";
 	getline(std::cin, symptoms);
-
+	std::cout << "\n";
 }
 
 std::string Patient::getName(){ return name; }
 
 std::string Patient::getLastNames(){ return lastNames; }
 
-std::string Patient::getFullName(){ return name + lastNames; }
+std::string Patient::getFullName(){ return name + " " + lastNames; }
 
 std::string Patient::getBirthday(){ return birthday; }
 
 std::string Patient::getAge(){ return age; }
+
+std::string Patient::getGend() { return gender; }
 
 
 
@@ -63,12 +69,24 @@ void Patient::setAge(std::string a){ age = a; }
 
 void Patient::setBirthday(std::string bd){ birthday = bd; }
 
-void Patient::setVisits(int v){ visits += v; } //FIX
+void Patient::updtVisits(){ visits += 1; } 
 
 void Patient::setTurns(int t){ turns = t; }
 
 void Patient::setID(int id){ ID = id; }
 
+void Patient::setGend(std::string g) { gender = g; }
+
 void Patient::setSymp(std::string s) { symptoms = s; }
 
 std::string Patient::getSymp() { return symptoms; }
+
+//void Patient::setVisHis(std::string visit) { pvisits.push(visit); }
+
+//void Patient::printVisHis()
+//{
+//	for (std::stack<std::string> dump = pvisits; !dump.empty(); dump.pop())
+//	{
+//		std::cout << dump.top() << "\n";
+//	}
+//}
