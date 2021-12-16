@@ -16,8 +16,8 @@
 #include <algorithm>
 #include <chrono>
 #include <ctime>
-#include "BSTree.h"
 #include "System.h"
+
 
 std::list<Patient> plist;     //Patient List.
 std::list<Doctor> dlist;      //Doctor List.
@@ -28,6 +28,15 @@ std::deque<int> pqueue;		  //Patient queue, they are put in the queue by ID.
 System::System() { /*Empty on purpose*/ }
 
 /**************** SYSTEM FUNCTIONS ****************/
+//Creates an invoice with the patients and doctors information.
+void System::createInvoice(Patient p)
+{
+	Invoice in;
+
+}
+//display invoice function (could be done from invoice class)
+//find invoice function
+
 /* Displays all the doctors in dlist. */
 void System::displayDoctors()
 {
@@ -122,9 +131,11 @@ void System::removeFromQueue(Patient p)
 void System::patientLogin(Patient &p)
 {
 
-	int loginChoice = 0;     //Stores the users choice for dashboard options.
-	std::string symp = " ";  //Stores patient symptoms.
-	std::string temp = " ";  //Can store a physicians name or ID.
+	int loginChoice = 0, id = 0;     //loginChoice Stores the users choice for dashboard options, id stores the doctor to be searched fors id.
+	std::string symp = " ";			 //Stores patient symptoms.
+	std::string temp = " ";			 //Can store a physicians name or ID.
+
+	
 
 	std::cout << "\n";	//New line to show the system pause under the previous text.
 	system("pause");
@@ -155,6 +166,14 @@ void System::patientLogin(Patient &p)
 	std::cin >> loginChoice;  //Getting users choice.
 	std::cin.ignore();        //Ignoring the characters that cin leaves behind so getline wont be affected.
 
+	if (loginChoice < 0 || loginChoice > 6)
+	{
+		std::cout << "Enter a valid option.\n>";
+		std::cin >> loginChoice;
+		std::cin.ignore();
+	}
+
+
 	switch (loginChoice)
 	{
 		case 1:
@@ -183,20 +202,43 @@ void System::patientLogin(Patient &p)
 			//Iterates through the list comparing either an ID or name to the objects in it.
 			for (Doctor n : dlist)
 			{
-				//If the doctor is found the doctors information is displayed and the patient can choose more options.
+				//If the doctor is found the doctors information is displayed.
 				if (temp == n.getName() || temp == its(n.getID()))
 				{
-					std::cout << "Doctor " << n.getName() << " - ID-" << n.getID() << " is in the system.\n\n";
-					std::cout << "Would you like to see this doctors invoices? (y/n): ";
-				}
-				else
-				{
-					std::cout << "Doctor not in system.\n";
+					std::cout << "Doctor " << n.getName() << " - ID -" << n.getID() << " is in the system.\n";
+					continue;
 				}
 			}
-		
-		//Goes back to the patient dashboard.
-		patientLogin(p);
+			
+			//This is done in case there are duplicates of doctors.
+			std::cout << "\n\nEnter the ID of the doctor you would like to select: ";
+			std::cin >> id;
+			std::cin.ignore();
+
+			for (Doctor n : dlist)
+			{
+				//If their name or ID match then more information is displayed.
+				if (id == n.getID())
+				{
+					std::cout << "Would you like to view this doctors information? (y/n): ";
+					getline(std::cin, temp);
+
+					//Information of the selected doctor is displayed.
+					if (temp == "y" || temp == "yes")
+					{
+						std::cout << "\n\n========================================================\n"
+							"\t\t" << n.getFullName() << "'s Information"
+							"\n========================================================\n\n"
+							"ID        - " << n.getID() << "\n"
+							"Name      - " << n.getName() << "\n"
+							"Last Name - " << n.getLastNames() << "\n"
+							"HealthCare Plans - Aetna, Excellus, MMM\n"
+							"\n========================================================\n";
+					}
+				}
+			}
+			//Goes back to the patient dashboard.
+			patientLogin(p);
 			break;
 
 		case 3:
@@ -208,6 +250,7 @@ void System::patientLogin(Patient &p)
 
 		case 4:
 			//Printing the visit history stack.
+			std::cout << "\n";
 			p.printVisHis();
 
 			patientLogin(p); //Goes back to the patients dashboard.
@@ -215,7 +258,7 @@ void System::patientLogin(Patient &p)
 
 		case 5:
 			//All the physicians in the system are displayed so the patient can see if theirs is on the list.
-			std::cout << "Displaying all physicians in the system\n\n";
+			std::cout << "\nDisplaying all physicians in the system\n\n";
 
 			//Displays the doctors.
 			displayDoctors();
@@ -237,11 +280,19 @@ void System::patientLogin(Patient &p)
 					"3. Age       - " << p.getAge() << "\n"
 					"4. Birthday  - " << p.getBirthday() << "\n"
 					"5. Gender    - " << p.getGend() << "\n"
+					"0. Back\n"
 					"\n========================================================\n"
 					"\tPick an option from the menu above"
 					"\n--------------------------------------------------------\n>";
 				std::cin >> infoupdt;
 				std::cin.ignore();
+
+				if (infoupdt < 0 || infoupdt > 5)
+				{
+					std::cout << "Enter a valid option.\n>";
+					std::cin >> infoupdt;
+					std::cin.ignore();
+				}
 
 				//Information is updated depending on the choice using setters from the Patient class.
 				switch (infoupdt)
@@ -280,16 +331,23 @@ void System::patientLogin(Patient &p)
 						p.setGend(ninfo);
 						std::cout << "\nInformation updated.\n";
 						break;
+					default:
+						patientLogin(p);   //Goes back to the patients dashboard.
 				}
-				patientLogin(p); //Goes back to the patients dashboard.
 			}
+			patientLogin(p);   //Goes back to the patients dashboard.
 			break;
 
 		default:
+			//Updating the visits count and the visit history.
+			p.updtVisits();
+			p.setVisHis(("Visit " + its(p.getVisits()) + " " + getTime()));
+
 			//Goes back to the main menu.
 			mMenu();
 			break;
 	}
+
 }
 
 /* Menu displayed after a doctor logs in, it displays a 'dashboard' with the doctor information. */
@@ -297,9 +355,9 @@ void System::doctorLogin(Doctor d)
 {
 	//loginChoice stores the doctors first choice from the ones in the dashboard, 
 	//docChoice is a choice stored after the doctor starts to attend a patient.
-	int loginChoice = 0, docChoice = 0;  
+	//id is the id of the patient to be attended.
+	int loginChoice = 0, docChoice = 0, id = 0;  
 	std::string temp = " ";			     //Stores either the patients name or ID.
-
 
 	std::cout << "\n";	//New line to seperate the system pause from the previous text.
 	system("pause");
@@ -323,6 +381,13 @@ void System::doctorLogin(Doctor d)
 	std::cin >> loginChoice;  
 	std::cin.ignore();        //Ignoring the characters that cin leaves behind so getline wont be affected.
 
+	if (loginChoice < 0 || loginChoice > 6)
+	{
+		std::cout << "Enter a valid option.\n>";
+		std::cin >> loginChoice;
+		std::cin.ignore();
+	}
+
 	switch (loginChoice)
 	{
 		case 1:
@@ -336,7 +401,21 @@ void System::doctorLogin(Doctor d)
 				//If their name or ID match then their information is displayed.
 				if (temp == n.getName() || temp == its(n.getID()))
 				{
-					std::cout << "Patient " << n.getName() << " - ID-" << n.getID() << " is in the system.\n\n";
+					std::cout << "\nPatient Found - " << n.getName() << " - ID - " << n.getID();
+					continue;
+				}
+			}
+			
+			//This is done in case there are duplicates of patients.
+			std::cout << "\n\nEnter the ID of the patient you would like to attent: ";
+			std::cin >> id;
+			std::cin.ignore();
+
+			for (Patient n : plist)
+			{
+				//If their ID match then their information is displayed.
+				if (id == n.getID())
+				{
 					std::cout << "Would you like to attend this patient? (y/n): ";
 					getline(std::cin, temp);
 
@@ -350,7 +429,7 @@ void System::doctorLogin(Doctor d)
 							"Name      - " << n.getName() << "\n"
 							"Last Name - " << n.getLastNames() << "\n"
 							"Age       - " << n.getAge() << "\n"
-							"Turn      - " << findTurn(n) + 1<< "\n"
+							"Turn      - " << findTurn(n) + 1 << "\n"
 							"Birthday  - " << n.getBirthday() << "\n"
 							"Gender    - " << n.getGend() << "\n"
 							"Number of visits  - " << n.getVisits() << "\n"
@@ -370,19 +449,24 @@ void System::doctorLogin(Doctor d)
 							std::cout << "Invoice written";
 							removeFromQueue(n);
 						}
-						else if(docChoice == 2)
+						else if (docChoice == 2)
 						{
 							//Doctor can see the patients visit history.
 							//Printing the visit history stack.
+							std::cout << "\n";
 							n.printVisHis();
 						}
+						else
+						{
+							//Going back to doctors login screen.
+							doctorLogin(d);
+						}
 
-						//Going back to doctors login screen.
-						doctorLogin(d);
 					}
+
 				}
 			}
-
+			
 			//Goes back to the doctors dashboard
 			doctorLogin(d);
 			break;
@@ -407,14 +491,14 @@ void System::doctorLogin(Doctor d)
 }
 
 /* Main menu of the system, allows doctors and patients to login. */
-int System::mMenu()
+void System::mMenu()
 {
 	int choice = 0; //Choice stores the first choice the user makes, if they'are a doctor or patient.
 	do
 	{
 		getTime();
 		//Menu to allow the user to make a choice.
-		cout << "\n========================================================\n"
+		std::cout << "\n========================================================\n"
 			"  Emergency Room Patients Healthcare Management System  \n"
 			"--------------------------------------------------------\n"
 			"  Are you a Doctor or a Patient?                        \n"
@@ -423,14 +507,14 @@ int System::mMenu()
 			"  0. Exit                                               \n"
 			"========================================================\n"
 			"  >";
-		cin >> choice; //Reading the users input for the choice.
+		std::cin >> choice; //Reading the users input for the choice.
 
 		//If the choice is not one that is on the menu the user is asked to enter it again
 		if (choice < 0 || choice > 2)
 		{
-			cout << "Enter a valid option.\n>";
-			cin >> choice;
-			cin.ignore();
+			std::cout << "Enter a valid option.\n>";
+			std::cin >> choice;
+			std::cin.ignore();
 		}
 
 		switch (choice)
@@ -440,12 +524,12 @@ int System::mMenu()
 			****************************************************************************************************/
 			case 1:
 			{
-				string dans;
+				std::string dans;
 				int didLogin = 0;
 
-				cout << "Have you been registered in the system before? (yes/no)\n>";
-				cin.ignore();
-				getline(cin, dans);
+				std::cout << "Have you been registered in the system before? (yes/no)\n>";
+				std::cin.ignore();
+				std::getline(std::cin, dans);
 
 				if (dans == "no" || dans == "n" || dans == "NO")
 				{
@@ -453,8 +537,8 @@ int System::mMenu()
 				}
 				else
 				{
-					cout << "\nEnter your ID: ";
-					cin >> didLogin;
+					std::cout << "\nEnter your ID: ";
+					std::cin >> didLogin;
 					doctorLogin(findDoctor(didLogin));
 				}
 			}
@@ -467,20 +551,20 @@ int System::mMenu()
 
 				//NEED TO ADD DASHBOARD OPTIONS TO CHANGE INFO AND MAKE IT LOOK BETTER
 			{
-				string ans;			//Stores the patients answer.
+				std::string ans;			//Stores the patients answer.
 				int pidLogin = 0;   //Stores the patients id.
 
-				cout << "Have you been registered in the system before? (yes/no)\n>";
-				cin.ignore();
-				getline(cin, ans);
+				std::cout << "Have you been registered in the system before? (yes/no)\n>";
+				std::cin.ignore();
+				std::getline(std::cin, ans);
 				if (ans == "no" || ans == "n" || ans == "NO")
 				{
 					addPatient();
 				}
 				else
 				{
-					cout << "\nEnter your ID: ";
-					cin >> pidLogin;
+					std::cout << "\nEnter your ID: ";
+					std::cin >> pidLogin;
 					patientLogin(*findPatient(pidLogin));
 				}
 			}
@@ -492,9 +576,13 @@ int System::mMenu()
 
 	//Allows the user to restart the program or exit it.
 	char ec = ' ';
-	cout << "Are you sure you want to exit the program? (y/n): ";
-	cin >> ec;
-	return ec == 'n' ? mMenu() : 0;
+	std::cout << "Are you sure you want to exit the program? (y/n): ";
+	std::cin >> ec;
+
+	if (ec == 'y')
+		exit(0);
+	else
+		mMenu();
 }
 
 
@@ -511,7 +599,7 @@ std::string System::getTime()
 	ctime_s(str, 26, &now);
 
 	//Converting the time into a string.
-	string time = " ";
+	std::string time = " ";
 	for (char i : str)
 		time += i;
 	

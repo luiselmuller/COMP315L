@@ -28,6 +28,8 @@
  * +displayPatients() -> Displays all of the patients in the patient list.
  * +addDoctor() -> Adds a doctor to the system using the default constructor.
  * +addPatient() -> Adds a patient to the system using the default constructor.
+ * +createInvoice() -> Creates a patient invoice, takes in a patient object
+ *  as an argument to know which patients invoice it is.
  * 
  * || MENUS ||
  * +mMenu() -> Displays the main menu of the system, this is the first menu the
@@ -57,8 +59,7 @@
  * || VARIABLES ||
  * No variables in the class
  *******************************************************************************/
-#include "Patient.h"
-#include "Doctor.h"
+#include "Invoice.h"
 
 class System
 {
@@ -74,9 +75,10 @@ class System
 		void addDoctor();
 		void addPatient();
 		void removeFromQueue(Patient p);
+		void createInvoice(Patient p);
 		
 		/* Menus */
-		int mMenu();
+		void mMenu();
 		void doctorLogin(Doctor d);
 		void patientLogin(Patient &p);
 

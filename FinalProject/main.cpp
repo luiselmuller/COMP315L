@@ -19,5 +19,6 @@ int main()
     System system;
    
     /* Displays the Main Menu of the System, everything else is managed by the system class.*/
-    return system.mMenu();
+    system.mMenu();
+    return 0;
 }

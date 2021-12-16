@@ -66,6 +66,8 @@
  * 
  *******************************************************************************/
 #include <stack>
+#include "BSTree.h"
+#include "Invoice.h"
 
 class Patient
 {
@@ -105,6 +107,8 @@ class Patient
         std::string name, lastNames, birthday, age, gender, symptoms;
         int visits = 0, turns = 0, ID = 0;
         std::stack<std::string> vhis; 
+        struct node* root = NULL;
+
 };
 
 #endif
