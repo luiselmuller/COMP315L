@@ -29,6 +29,7 @@ int main()
 	BST.printPostOrder();
 	cout << endl;
 	
+	BST.addBT(0);
 	int sVal;
 	cout << endl << "Insert value to be searched: ";
 	cin >> sVal;

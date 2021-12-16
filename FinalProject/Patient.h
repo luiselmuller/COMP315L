@@ -12,23 +12,25 @@
   information.
 ====================================================*/  
 
+/*NEEDS EDIT*/
 /********************************************************************************
  * PATIENT CLASS DETAILS : 
  * 
  * || CONSTRUCTORS ||
- * +Patient() -> Empty/default constructor.
- * +Patient() -> Constructor used to create a patient object with all of 
- * the patients personalinformation.
+ * +Patient() -> Empty/default constructor that prompts the user to enter 
+ *  information and uses that to initialize variables.
  * 
  * || GETTER FUNCTIONS ||
  * +getName()      -> Returns a string that contains the name of the patient.
  * +getLastNames() -> Returns a string containing the last names of a patient.
  * +getFullName()  -> Concatenates the patients name and last names into a 
- *                   single string and returns it.
+ *  single string and returns it.
  * +getBirthday()  -> Returns a string containing the patients birthday.
  * +getAge() -> Returns the patients age as an integer value.
  * +getTurns()     -> Returns the patients turns as an integer.
  * +getVisits()    -> Returns the patients visits as an integer.
+ * +getSymp()      -> Returns the symptoms of the patient as a string.
+ * +getGend()      -> Returns the gender of the patient as a string.
  * 
  * || SETTER FUNCTIONS ||
  * ## None of these functions return any values ##
@@ -49,6 +51,8 @@
  *      -age       -> Stores the age of the patient, cannot be <= 0. The 
  *                    variable holds a string in the case the age is < 1, in
  *                    that case it should be specified that the age is months.
+ *      -gender    -> Stores the patients gender.
+ *      -symptoms  -> Stores the patients symptoms.
  * Integers:
  *      -visits    -> Stores the visits a patient has had.
  *      -turns     -> Stores the patients turns.

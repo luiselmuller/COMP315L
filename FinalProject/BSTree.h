@@ -47,8 +47,6 @@ public:
 
 	//printPostOrder(): PostOrder Traversal
 	void printPostOrder();
-
-	int addBT(BSTNode<T> * root);
 private:
 	BSTNode<T> *root; // A pointer to the first node
 	void visitInOrder(BSTNode<T> *node); // Recursive support method for printInOrder
@@ -327,11 +325,4 @@ void BSTree<T>::insert(T val)
 	else
 		parent->setRight(nNode);//if it's greater the new node is added to the right
 }
-
-template <class T>
-int BSTree<T>::addBT(BSTNode<T>* root)
-{
-    if (root == NULL)
-        return 0;
-    cout<< "SUM" (root->info + addBT(root->left) + addBT(root->right));
-}
+	

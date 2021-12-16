@@ -12,6 +12,7 @@
 #include <stack>
 #include "Patient.h"
 
+/* Default constructor, initializes the name, lastNames, age, birthday, gener and symptoms variables from user input. */
 Patient::Patient()
 {
 	std::cout << "Enter the patients name: ";
@@ -41,45 +42,64 @@ Patient::Patient()
 	std::cout << "\n";
 }
 
+/* Returns the  name of the patient as a string. */
 std::string Patient::getName(){ return name; }
 
+/* Returns the last name of the patient as a string. */
 std::string Patient::getLastNames(){ return lastNames; }
 
+/* Concatenates the name and last name of the patient to return the full name as a string. */
 std::string Patient::getFullName(){ return name + " " + lastNames; }
 
+/* Returns the patients birthday as a string. */
 std::string Patient::getBirthday(){ return birthday; }
 
+/* Returns the age of the patient as a string. */
 std::string Patient::getAge(){ return age; }
 
+/* Returns the gender of the patient as a string. */
 std::string Patient::getGend() { return gender; }
 
+/* Returns the patients symptoms as a string. */
+std::string Patient::getSymp() { return symptoms; }
 
+/* Returns and integer value that corresponds to the patients turn in the queue. */
+//int Patient::getTurns(){ return turns; }
 
-int Patient::getTurns(){ return turns; }
-
+/* Returns and integer value that corresponds to the amount of visits the patient has. */
 int Patient::getVisits(){ return visits; }
 
+/* Returns the patients ID as an integer. */
 int Patient::getID(){ return ID; }
 
+/* Sets the patients name. */
 void Patient::setName(std::string n){ name = n; }
 
+/* Sets the patients last name. */
 void Patient::setLastNames(std::string ln){ lastNames = ln; }
 
+/* Sets the patients age. */
 void Patient::setAge(std::string a){ age = a; }
 
+/* Sets the patients birthday. */
 void Patient::setBirthday(std::string bd){ birthday = bd; }
 
+/* Sets the patients visits (adds one to visits variable). */
 void Patient::updtVisits(){ visits += 1; } 
 
-void Patient::setTurns(int t){ turns = t; }
+/* Sets the patients current turn. */
+//void Patient::setTurns(int t){ turns = t; }
 
+/* Sets the patients ID. */
 void Patient::setID(int id){ ID = id; }
 
+/* Sets the patients gender. */
 void Patient::setGend(std::string g) { gender = g; }
 
+/* Sets the patients symptoms. */
 void Patient::setSymp(std::string s) { symptoms = s; }
 
-std::string Patient::getSymp() { return symptoms; }
+
 
 //void Patient::setVisHis(std::string visit) { pvisits.push(visit); }
 
