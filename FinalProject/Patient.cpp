@@ -12,7 +12,7 @@
 #include <stack>
 #include "Patient.h"
 
-/* Default constructor, initializes the name, lastNames, age, birthday, gener and symptoms variables from user input. */
+/* Constructor that initializes the name, lastNames, age, birthday, gener and symptoms variables from user input. */
 Patient::Patient()
 {
 	std::cout << "Enter the patients name: ";
@@ -27,7 +27,6 @@ Patient::Patient()
 		"than one year old enter it as '# month/s old'): ";
 	getline(std::cin, age);
 	std::cout << "\n";
-
 
 	std::cout << "Enter the patients birthday (dd/mm/yyyy): ";
 	getline(std::cin, birthday);
@@ -49,7 +48,7 @@ std::string Patient::getName(){ return name; }
 std::string Patient::getLastNames(){ return lastNames; }
 
 /* Concatenates the name and last name of the patient to return the full name as a string. */
-std::string Patient::getFullName(){ return name + " " + lastNames; }
+std::string Patient::getFullName() { return name + " " + lastNames; }
 
 /* Returns the patients birthday as a string. */
 std::string Patient::getBirthday(){ return birthday; }
@@ -62,9 +61,6 @@ std::string Patient::getGend() { return gender; }
 
 /* Returns the patients symptoms as a string. */
 std::string Patient::getSymp() { return symptoms; }
-
-/* Returns and integer value that corresponds to the patients turn in the queue. */
-//int Patient::getTurns(){ return turns; }
 
 /* Returns and integer value that corresponds to the amount of visits the patient has. */
 int Patient::getVisits(){ return visits; }
@@ -87,9 +83,6 @@ void Patient::setBirthday(std::string bd){ birthday = bd; }
 /* Sets the patients visits (adds one to visits variable). */
 void Patient::updtVisits(){ visits += 1; } 
 
-/* Sets the patients current turn. */
-//void Patient::setTurns(int t){ turns = t; }
-
 /* Sets the patients ID. */
 void Patient::setID(int id){ ID = id; }
 
@@ -103,10 +96,10 @@ void Patient::setSymp(std::string s) { symptoms = s; }
 
 //void Patient::setVisHis(std::string visit) { pvisits.push(visit); }
 
-//void Patient::printVisHis()
-//{
-//	for (std::stack<std::string> dump = pvisits; !dump.empty(); dump.pop())
-//	{
-//		std::cout << dump.top() << "\n";
-//	}
-//}
+void Patient::printVisHis(std::stack<std::string> pvisits)
+{
+	for (std::stack<std::string> dump = pvisits; !dump.empty(); dump.pop())
+	{
+		std::cout << dump.top() << "\n";
+	}
+}

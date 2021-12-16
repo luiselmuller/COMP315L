@@ -67,9 +67,8 @@ class System
 		System();
 
 		/* System functions */
-		Patient findPatient(int pid);
+		Patient* findPatient(int pid);
 		Doctor findDoctor(int did);
-		//void setPatientTurn(int t, Patient p);
 		void displayDoctors();
 		void displayPatients();
 		void addDoctor();
@@ -79,7 +78,7 @@ class System
 		/* Menus */
 		int mMenu();
 		void doctorLogin(Doctor d);
-		void patientLogin(Patient p);
+		void patientLogin(Patient &p);
 
 		/* Helper Functions */
 		std::string getTime();

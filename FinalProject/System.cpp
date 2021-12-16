@@ -15,19 +15,21 @@
 #include <list>
 #include <algorithm>
 #include <stack>
+#include <chrono>
+#include <ctime>
 #include "BSTree.h"
 #include "System.h"
 
+std::list<Patient> plist;     //Patient List.
+std::list<Doctor> dlist;      //Doctor List.
+std::deque<int> pqueue;		  //Patient queue, they are put in the queue by ID.
+std::stack<std::string> vhis; //Visit history of the patient.
 
-std::list<Patient> plist; //Patient List.
-std::list<Doctor> dlist;  //Doctor List.
-std::deque<int> pqueue;   //Patient queue, they are put in the queue by ID.
-
-/* Default constructor */
+/* DEFAULT CONSTRUCTOR */
 System::System() { /*Empty on purpose*/ }
 
 
-/* System Functions */
+/* SYSTEM FUNCTIONS */
 
 /* Displays all the doctors in dlist. */
 void System::displayDoctors()
@@ -47,7 +49,7 @@ void System::displayPatients()
 	for (Patient n : plist)
 	{
 		//Displays the patients ID, full name and their turn in the queue. 
-		std::cout << "ID | " << n.getID() << " | Full Name | " << n.getFullName() << "| Turn | " << findTurn(n) + 1<< std::endl;
+		std::cout << "| ID | " << n.getID() << " | Full Name | " << n.getFullName() << " | Turn | " << findTurn(n) + 1<< std::endl;
 	}
 }
 
@@ -74,16 +76,19 @@ void System::addPatient()
 
 	//Add the patient to the queue.
 	pqueue.push_back(patient.getID());
-
 }
 
 /* Finds a patient in plist and returns the object. */
-Patient System::findPatient(int pid)
+Patient* System::findPatient(int pid)
 {
-	for (Patient n : plist)
+	for (Patient &n : plist)
 	{
 		if (pid == n.getID())
-			return n;
+		{
+			auto *i = &n;
+			return i;
+		}
+
 		continue;
 	}
 	//If the patient isn't found return to the main menu.
@@ -97,6 +102,7 @@ Doctor System::findDoctor(int did)
 	{
 		if (did == n.getID())
 			return n;
+
 		continue;
 	}
 	//If the doctor isn't found return to the main menu.
@@ -114,17 +120,17 @@ void System::removeFromQueue(Patient p)
 	pqueue.erase(pqueue.begin() + findTurn(p));
 }
 
-/* Menu Functions */
+/* MENU FUNCTIONS */
 
 /* Menu displayed after a patient logs in, it displays a 'dashboard' with the patient information. */
-void System::patientLogin(Patient p)
+void System::patientLogin(Patient &p)
 {
 
 	int loginChoice = 0;     //Stores the users choice for dashboard options.
 	std::string symp = " ";  //Stores patient symptoms.
 	std::string temp = " ";  //Can store a physicians name or ID.
 
-	//p.updtVisits();
+	p.updtVisits();
 
 	std::cout << "\n";	//New line to show the system pause under the previous text.
 	system("pause");
@@ -148,7 +154,7 @@ void System::patientLogin(Patient p)
 		"2. Find a Physician\n"
 		"3. See Invoices\n"
 		"4. See Visit History\n"
-		"5. See Physicians in sytem\n"
+		"5. See Physicians in system\n"
 		"0. Back\n>";
 
 	std::cin >> loginChoice;  //Getting users choice.
@@ -217,6 +223,7 @@ void System::patientLogin(Patient p)
 
 }
 
+/* Menu displayed after a doctor logs in, it displays a 'dashboard' with the doctor information. */
 void System::doctorLogin(Doctor d)
 {
 	
@@ -333,14 +340,13 @@ void System::doctorLogin(Doctor d)
 	}
 }
 
-
-
-
+/* Main menu of the system, allows doctors and patients to login. */
 int System::mMenu()
 {
 	int choice = 0; //Choice stores the first choice the user makes, if they'are a doctor or patient.
 	do
 	{
+		getTime();
 		//Menu to allow the user to make a choice.
 		cout << "\n========================================================\n"
 			"  Emergency Room Patients Healthcare Management System  \n"
@@ -366,58 +372,59 @@ int System::mMenu()
 			/****************************************************************************************************
 			* If the user is a doctor they can add themselves to the system and then sign in to their dashboard.
 			****************************************************************************************************/
-		case 1:
-		{
-			string dans;
-			int didLogin = 0;
-
-			cout << "Have you been registered in the system before? (yes/no)\n>";
-			cin.ignore();
-			getline(cin, dans);
-
-			if (dans == "no" || dans == "n" || dans == "NO")
+			case 1:
 			{
-				addDoctor();
-			}
-			else
-			{
-				cout << "\nEnter your ID: ";
-				cin >> didLogin;
-				doctorLogin(findDoctor(didLogin));
-			}
-		}
-		break;
+				string dans;
+				int didLogin = 0;
 
-		/****************************************************************************************************
-		* If the user is a patient they can add themselves to the system and then sign in to their dashboard.
-		****************************************************************************************************/
-		case 2:
+				cout << "Have you been registered in the system before? (yes/no)\n>";
+				cin.ignore();
+				getline(cin, dans);
 
-			//NEED TO ADD DASHBOARD OPTIONS TO CHANGE INFO AND MAKE IT LOOK BETTER
-		{
-			string ans;			//Stores the patients answer.
-			int pidLogin = 0;   //Stores the patients id.
+				if (dans == "no" || dans == "n" || dans == "NO")
+				{
+					addDoctor();
+				}
+				else
+				{
+					cout << "\nEnter your ID: ";
+					cin >> didLogin;
+					doctorLogin(findDoctor(didLogin));
+				}
+			}
+			break;
 
-			cout << "Have you been registered in the system before? (yes/no)\n>";
-			cin.ignore();
-			getline(cin, ans);
-			if (ans == "no" || ans == "n" || ans == "NO")
+			/****************************************************************************************************
+			* If the user is a patient they can add themselves to the system and then sign in to their dashboard.
+			****************************************************************************************************/
+			case 2:
+
+				//NEED TO ADD DASHBOARD OPTIONS TO CHANGE INFO AND MAKE IT LOOK BETTER
 			{
-				addPatient();
+				string ans;			//Stores the patients answer.
+				int pidLogin = 0;   //Stores the patients id.
+
+				cout << "Have you been registered in the system before? (yes/no)\n>";
+				cin.ignore();
+				getline(cin, ans);
+				if (ans == "no" || ans == "n" || ans == "NO")
+				{
+					addPatient();
+				}
+				else
+				{
+					cout << "\nEnter your ID: ";
+					cin >> pidLogin;
+					patientLogin(*findPatient(pidLogin));
+				}
 			}
-			else
-			{
-				cout << "\nEnter your ID: ";
-				cin >> pidLogin;
-				patientLogin(findPatient(pidLogin));
-			}
-		}
-		break;
+			break;
 
 		}
 	//If the choice is 0 the program exits the loop and then the user is given the choice to restart or exit.
 	} while (choice != 0);
 
+	//Allows the user to restart the program or exit it.
 	char ec = ' ';
 	cout << "Are you sure you want to exit the program? (y/n): ";
 	cin >> ec;
@@ -425,14 +432,24 @@ int System::mMenu()
 }
 
 
-/* Helper Functions */
-//void System::setPatientTurn(int t, Patient p) { p.setTurns(t + 1); }
+/* HELPER FUNCTIONS */
 
 /* Returns the current time. */
 std::string System::getTime()
 {
-	//NEED TO IMPLEMENT
-	return "time";
+	//Getting the current time and date.
+	time_t now = time(0);
+	//The time is stored in this array.
+	char str[26] = {};
+	//First argument is the buffer, second argument the size and the third one is the time itself.
+	ctime_s(str, 26, &now);
+
+	//Converting the time into a string.
+	string time = " ";
+	for (char i : str)
+		time += i;
+	
+	return time;
 }
 
 /* Converts an integer value to string and returns it. */
@@ -469,6 +486,7 @@ int System::duid()
 /* Finds a patients turn in the queue. */
 int System::findTurn(Patient p)
 {
+	//Iterates through the queue and when it finds the ID it returns the position. Else it returns -1.
 	while (!pqueue.empty())
 	{
 		auto pos = std::find(pqueue.begin(), pqueue.end(), p.getID());
@@ -490,7 +508,7 @@ bool System::inQueue(Patient p)
 {
 	bool flag = false;
 
-	//If the queue is not empty we iterate through it till we find the patient id.
+	//If the queue is not empty we iterate through it till we find the patient id. When it's found flag is set to true and the loop is exited.
 	while (!pqueue.empty())
 	{
 		auto pos = std::find(pqueue.begin(), pqueue.end(), p.getID());

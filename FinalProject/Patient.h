@@ -27,7 +27,6 @@
  *  single string and returns it.
  * +getBirthday()  -> Returns a string containing the patients birthday.
  * +getAge() -> Returns the patients age as an integer value.
- * +getTurns()     -> Returns the patients turns as an integer.
  * +getVisits()    -> Returns the patients visits as an integer.
  * +getSymp()      -> Returns the symptoms of the patient as a string.
  * +getGend()      -> Returns the gender of the patient as a string.
@@ -40,7 +39,7 @@
  * +setBirthday()  -> Sets the birthday of the patient.                  
  * +setAge()       -> Sets the age of the patient. 
  * +setVisits()    -> Sets the visits the patient has had.
- * +setTurns()     -> Sets the patients turn.
+ * +setGend()      -> Sets the patients gender.
  * 
  * || VARIABLES ||
  * Strings:
@@ -58,6 +57,7 @@
  *      -turns     -> Stores the patients turns.
  * 
  *******************************************************************************/
+#include <stack>
 
 class Patient
 {
@@ -73,8 +73,6 @@ class Patient
         std::string getAge();
         std::string getSymp();
         std::string getGend();
-
-        int getTurns();
         int getVisits();
         int getID();
 
@@ -85,15 +83,13 @@ class Patient
         void setAge(std::string a);
         void setBirthday(std::string bd);
         void updtVisits();
-        void setTurns(int t);
         void setID(int id);
-        //void setVisHis(std::string visit);
         void setSymp(std::string s);
         
 
         /* Other */
     
-        //void printVisHis();
+        void printVisHis(std::stack<std::string> pvisits);
 
 
     private:
