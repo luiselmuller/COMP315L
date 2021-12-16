@@ -84,9 +84,10 @@ Patient System::findPatient(int pid)
 	{
 		if (pid == n.getID())
 			return n;
+		continue;
 	}
-	//If the patient isn't found exit the program.
-		
+	//If the patient isn't found return to the main menu.
+	mMenu();
 }
 
 /* Finds a patient in dlist and returns the object. */
@@ -96,9 +97,10 @@ Doctor System::findDoctor(int did)
 	{
 		if (did == n.getID())
 			return n;
+		continue;
 	}
-//If the doctor isn't found exit the program.
-    
+	//If the doctor isn't found return to the main menu.
+	mMenu();
 }
 
 /* Finds a patient in the queue and removes them. */
