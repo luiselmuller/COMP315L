@@ -7,12 +7,10 @@
   Healthcare System that keeps the patients records,
   visits, turns, diagnostics, treatments, etc.
 ---------------------------------------------------*/
-
 #include <iostream>
 #include "System.h"
 
 using namespace std;
-
 int main()
 {
     /* Creating a system object. */
