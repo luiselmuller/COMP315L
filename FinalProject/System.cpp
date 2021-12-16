@@ -27,9 +27,7 @@ std::deque<int> pqueue;		  //Patient queue, they are put in the queue by ID.
 /**************** DEFAULT CONSTRUCTOR ****************/
 System::System() { /*Empty on purpose*/ }
 
-
 /**************** SYSTEM FUNCTIONS ****************/
-
 /* Displays all the doctors in dlist. */
 void System::displayDoctors()
 {
@@ -120,7 +118,6 @@ void System::removeFromQueue(Patient p)
 }
 
 /**************** MENU FUNCTIONS ****************/
-
 /* Menu displayed after a patient logs in, it displays a 'dashboard' with the patient information. */
 void System::patientLogin(Patient &p)
 {
@@ -293,14 +290,14 @@ void System::patientLogin(Patient &p)
 			mMenu();
 			break;
 	}
-
 }
 
 /* Menu displayed after a doctor logs in, it displays a 'dashboard' with the doctor information. */
 void System::doctorLogin(Doctor d)
 {
-	
-	int loginChoice = 0, docChoice = 0;  //loginChoice stores the doctors first choice from the ones in the dashboard, docChoice is a choice stored after the doctor starts to attend a patient.
+	//loginChoice stores the doctors first choice from the ones in the dashboard, 
+	//docChoice is a choice stored after the doctor starts to attend a patient.
+	int loginChoice = 0, docChoice = 0;  
 	std::string temp = " ";			     //Stores either the patients name or ID.
 
 
@@ -366,7 +363,7 @@ void System::doctorLogin(Doctor d)
 							"0. Back \n>";
 						std::cin >> docChoice;  //Choice to either write an invoice or go back.
 
-						//If the doctor doesn't choose to write an invoice they go back to their own dashboard.
+						//The patient is only removed from the queue if their invoice gets written.
 						if (docChoice == 1)
 						{
 							//Doctor can write an invoice.
@@ -376,11 +373,11 @@ void System::doctorLogin(Doctor d)
 						else if(docChoice == 2)
 						{
 							//Doctor can see the patients visit history.
-							
-							removeFromQueue(n);
+							//Printing the visit history stack.
+							n.printVisHis();
 						}
 
-						//Patient is removed from the queue since they were attended.
+						//Going back to doctors login screen.
 						doctorLogin(d);
 					}
 				}
@@ -395,7 +392,6 @@ void System::doctorLogin(Doctor d)
 			std::cout << "\nPatients registered in the system: \n\n";
 			displayPatients();
 			doctorLogin(d);
-
 			break;
 
 		case 3:
@@ -404,12 +400,9 @@ void System::doctorLogin(Doctor d)
 			doctorLogin(d);
 			break;
 
-		case 4:
-		
-			break;
-
 		default:
 			mMenu();
+			break;
 	}
 }
 
