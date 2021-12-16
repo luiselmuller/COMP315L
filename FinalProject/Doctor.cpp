@@ -47,38 +47,3 @@ void Doctor::setID(int id) { ID = id; }
 
 
 
-//NEEDS FIX
-void Doctor::updatePatientInfo(Patient p)
-{
-	int infoToChange = -1;
-	std::string infVal = " ";
-
-	std::cout << "\n\n========================================================\n"
-		"\t\t" << p.getFullName() << "'s Information"
-		"\n========================================================\n"
-		"1. Name - " << p.getName() << "\n"
-		"2. Last Name - " << p.getLastNames() << "\n"
-		"3. Age  - " << p.getAge() << "\n"
-		"4. Number of visits - " << p.getVisits() << "\n"
-		"5. Birthday - " << p.getBirthday() <<
-		"0. Back "
-		"\n========================================================\n"
-		"\tPick an option from the menu above\n"
-		"\n--------------------------------------------------------\n"
-		">";
-	std::cin >> infoToChange;
-	std::cin.ignore();
-
-	switch (infoToChange)
-	{
-		case 1:
-			std::cout << "Enter the new Name: ";
-			getline(std::cin, infVal);
-			p.setName(infVal);
-			break;
-	}
-}
-
-
-
-

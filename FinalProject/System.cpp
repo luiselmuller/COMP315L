@@ -14,7 +14,6 @@
 #include <string>
 #include <list>
 #include <algorithm>
-#include <stack>
 #include <chrono>
 #include <ctime>
 #include "BSTree.h"
@@ -23,13 +22,13 @@
 std::list<Patient> plist;     //Patient List.
 std::list<Doctor> dlist;      //Doctor List.
 std::deque<int> pqueue;		  //Patient queue, they are put in the queue by ID.
-std::stack<std::string> vhis; //Visit history of the patient.
 
-/* DEFAULT CONSTRUCTOR */
+
+/**************** DEFAULT CONSTRUCTOR ****************/
 System::System() { /*Empty on purpose*/ }
 
 
-/* SYSTEM FUNCTIONS */
+/**************** SYSTEM FUNCTIONS ****************/
 
 /* Displays all the doctors in dlist. */
 void System::displayDoctors()
@@ -120,7 +119,7 @@ void System::removeFromQueue(Patient p)
 	pqueue.erase(pqueue.begin() + findTurn(p));
 }
 
-/* MENU FUNCTIONS */
+/**************** MENU FUNCTIONS ****************/
 
 /* Menu displayed after a patient logs in, it displays a 'dashboard' with the patient information. */
 void System::patientLogin(Patient &p)
@@ -129,8 +128,6 @@ void System::patientLogin(Patient &p)
 	int loginChoice = 0;     //Stores the users choice for dashboard options.
 	std::string symp = " ";  //Stores patient symptoms.
 	std::string temp = " ";  //Can store a physicians name or ID.
-
-	p.updtVisits();
 
 	std::cout << "\n";	//New line to show the system pause under the previous text.
 	system("pause");
@@ -150,11 +147,12 @@ void System::patientLogin(Patient &p)
 		"\n========================================================\n"
 		"\tPick an option from the menu below\n"
 		"--------------------------------------------------------\n"
-		"1. Visit purpose\n"
+		"1. Visit Purpose\n"
 		"2. Find a Physician\n"
 		"3. See Invoices\n"
 		"4. See Visit History\n"
-		"5. See Physicians in system\n"
+		"5. See Physicians in System\n"
+		"6. Update Information\n"
 		"0. Back\n>";
 
 	std::cin >> loginChoice;  //Getting users choice.
@@ -162,63 +160,138 @@ void System::patientLogin(Patient &p)
 
 	switch (loginChoice)
 	{
-	case 1:
-		//Patient inputs their symptoms.
-		std::cout << "Enter the patients symptoms: ";
-		getline(std::cin, symp);
-		p.setSymp(symp);
+		case 1:
+			//Patient inputs their symptoms.
+			std::cout << "Enter the patients symptoms: ";
+			getline(std::cin, symp);
+			p.setSymp(symp);
 
-		//If the patient is not in the queue we add them.
-		if (inQueue(p) == false)
-			pqueue.push_back(p.getID());
+			//If the patient is not in the queue we add them.
+			if (inQueue(p) == false)
+				pqueue.push_back(p.getID());
+
+			//Updating the visits count and the visit history.
+			p.updtVisits();
+			p.setVisHis(("Visit " + its(p.getVisits()) + " " + getTime()));
 		
-		//Goes back to the dashboard.
-		patientLogin(p);
-		break;
+			//Goes back to the dashboard.
+			patientLogin(p);
+			break;
 
-	case 2:
-		//Patient enters a physicians name or ID to search.
-		std::cout << "Enter the Physicians name or ID: ";
-		getline(std::cin, temp);
+		case 2:
+			//Patient enters a physicians name or ID to search.
+			std::cout << "Enter the Physicians name or ID: ";
+			getline(std::cin, temp);
 
-		//Iterates through the list comparing either an ID or name to the objects in it.
-		for (Doctor n : dlist)
-		{
-			//If the doctor is found the doctors information is displayed and the patient can choose more options.
-			if (temp == n.getName() || temp == its(n.getID()))
+			//Iterates through the list comparing either an ID or name to the objects in it.
+			for (Doctor n : dlist)
 			{
-				std::cout << "Doctor " << n.getName() << " - ID-" << n.getID() << " is in the system.\n\n";
-				std::cout << "Would you like to see this doctors invoices? (y/n): ";
+				//If the doctor is found the doctors information is displayed and the patient can choose more options.
+				if (temp == n.getName() || temp == its(n.getID()))
+				{
+					std::cout << "Doctor " << n.getName() << " - ID-" << n.getID() << " is in the system.\n\n";
+					std::cout << "Would you like to see this doctors invoices? (y/n): ";
+				}
+				else
+				{
+					std::cout << "Doctor not in system.\n";
+				}
 			}
-			else
-			{
-				std::cout << "Doctor not in system.\n";
-			}
-		}
 		
 		//Goes back to the patient dashboard.
 		patientLogin(p);
 			break;
+
 		case 3:
 
 			std::cout << "No invoices for patient " << p.getFullName() << std::endl;
+
+			patientLogin(p); //Goes back to the patients dashboard.
 			break;
+
 		case 4:
-			//p.printVisHis();
+			//Printing the visit history stack.
+			p.printVisHis();
+
+			patientLogin(p); //Goes back to the patients dashboard.
 			break;
 
 		case 5:
 			//All the physicians in the system are displayed so the patient can see if theirs is on the list.
 			std::cout << "Displaying all physicians in the system\n\n";
 
-			//Displayes the doctors.
+			//Displays the doctors.
 			displayDoctors();
 
 			//Goes back to the patients dashboard.
 			patientLogin(p);
+			break;
+
+		case 6:
+			{
+				int infoupdt = 0;			//Users choice of information to update.
+				std::string ninfo = " ";    //New information entered by the user.
+
+				std::cout << "\n\n========================================================\n"
+					"\t\t" << p.getFullName() << "'s Information"
+					"\n========================================================\n\n"
+					"1. Name      - " << p.getName() << "\n"
+					"2. Last Name - " << p.getLastNames() << "\n"
+					"3. Age       - " << p.getAge() << "\n"
+					"4. Birthday  - " << p.getBirthday() << "\n"
+					"5. Gender    - " << p.getGend() << "\n"
+					"\n========================================================\n"
+					"\tPick an option from the menu above"
+					"\n--------------------------------------------------------\n>";
+				std::cin >> infoupdt;
+				std::cin.ignore();
+
+				//Information is updated depending on the choice using setters from the Patient class.
+				switch (infoupdt)
+				{
+					case 1:
+						std::cout << "\nEnter a new name: ";
+						getline(std::cin, ninfo);
+						p.setName(ninfo);
+						std::cout << "\nInformation updated.\n";
+						break;
+						
+					case 2:
+						std::cout << "\nEnter a new last name: ";
+						getline(std::cin, ninfo);
+						p.setLastNames(ninfo);
+						std::cout << "\nInformation updated.\n";
+						break;
+
+					case 3:
+						std::cout << "\nEnter a new age: ";
+						getline(std::cin, ninfo);
+						p.setAge(ninfo);
+						std::cout << "\nInformation updated.\n";
+						break;
+
+					case 4:
+						std::cout << "\nEnter a new birthday: ";
+						getline(std::cin, ninfo);
+						p.setBirthday(ninfo);
+						std::cout << "\nInformation updated.\n";
+						break;
+
+					case 5:
+						std::cout << "\nEnter a new gender: ";
+						getline(std::cin, ninfo);
+						p.setGend(ninfo);
+						std::cout << "\nInformation updated.\n";
+						break;
+				}
+				patientLogin(p); //Goes back to the patients dashboard.
+			}
+			break;
+
 		default:
 			//Goes back to the main menu.
 			mMenu();
+			break;
 	}
 
 }
@@ -432,7 +505,7 @@ int System::mMenu()
 }
 
 
-/* HELPER FUNCTIONS */
+/**************** HELPER FUNCTIONS ****************/
 
 /* Returns the current time. */
 std::string System::getTime()

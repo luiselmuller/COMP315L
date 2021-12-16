@@ -13,6 +13,8 @@
 using namespace std;
 int main()
 {
+    //The Patient manegement system is all in the System class since this could be one of many systems in the hospital.
+
     /* Creating a system object. */
     System system;
    

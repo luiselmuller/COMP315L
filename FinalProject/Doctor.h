@@ -62,9 +62,6 @@ class Doctor
 		void setLastNames(std::string ln);
 		void setID(int id);
 
-		/* Other */
-		void updatePatientInfo(Patient p);
-
 	private:
 		std::string name, lastNames, observations, treatment;
 		int ID = 0;

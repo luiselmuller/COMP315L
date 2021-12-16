@@ -40,6 +40,10 @@
  * +setAge()       -> Sets the age of the patient. 
  * +setVisits()    -> Sets the visits the patient has had.
  * +setGend()      -> Sets the patients gender.
+ * +setVisHis()    -> Pushes the time of visit onto the visit history stack.
+ * 
+ * || OTHER ||
+ * +printVisHis()  -> Prints the visit history of the patient.
  * 
  * || VARIABLES ||
  * Strings:
@@ -52,9 +56,13 @@
  *                    that case it should be specified that the age is months.
  *      -gender    -> Stores the patients gender.
  *      -symptoms  -> Stores the patients symptoms.
+ * 
  * Integers:
  *      -visits    -> Stores the visits a patient has had.
  *      -turns     -> Stores the patients turns.
+ * 
+ * Stacks:
+ *      -std::stack<std::string> vhis -> Stores the visit history.
  * 
  *******************************************************************************/
 #include <stack>
@@ -85,16 +93,18 @@ class Patient
         void updtVisits();
         void setID(int id);
         void setSymp(std::string s);
+        void setVisHis(std::string s);
         
 
         /* Other */
     
-        void printVisHis(std::stack<std::string> pvisits);
+        void printVisHis();
 
 
     private:
         std::string name, lastNames, birthday, age, gender, symptoms;
         int visits = 0, turns = 0, ID = 0;
+        std::stack<std::string> vhis; 
 };
 
 #endif

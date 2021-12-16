@@ -92,13 +92,13 @@ void Patient::setGend(std::string g) { gender = g; }
 /* Sets the patients symptoms. */
 void Patient::setSymp(std::string s) { symptoms = s; }
 
+/* Pushes the string taken as an argument to the stack. */
+void Patient::setVisHis(std::string s) { vhis.push(s); }
 
-
-//void Patient::setVisHis(std::string visit) { pvisits.push(visit); }
-
-void Patient::printVisHis(std::stack<std::string> pvisits)
+/* Prints out the visit history stack by making a copy and popping its contents with cout. */
+void Patient::printVisHis()
 {
-	for (std::stack<std::string> dump = pvisits; !dump.empty(); dump.pop())
+	for (std::stack<std::string> dump = vhis; !dump.empty(); dump.pop())
 	{
 		std::cout << dump.top() << "\n";
 	}
