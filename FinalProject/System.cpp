@@ -13,29 +13,35 @@
 #include <iostream>
 #include <string>
 #include <list>
-#include <algorithm>
-#include <chrono>
-#include <ctime>
+#include <algorithm> //Used for deque.
+#include <chrono>    //Used to get time.
+#include <ctime>     //Used to get time.
 #include "System.h"
-
 
 std::list<Patient> plist;     //Patient List.
 std::list<Doctor> dlist;      //Doctor List.
 std::deque<int> pqueue;		  //Patient queue, they are put in the queue by ID.
-
 
 /**************** DEFAULT CONSTRUCTOR ****************/
 System::System() { /*Empty on purpose*/ }
 
 /**************** SYSTEM FUNCTIONS ****************/
 //Creates an invoice with the patients and doctors information.
-void System::createInvoice(Patient p)
+void System::createInvoice(Patient &p, Doctor d)
 {
-	Invoice in;
+	int cost = (rand() % 200) + 1;
+	std::cout << "\n\n========================================================\n"
+		"\t\t" << p.getFullName() << "'s Invoice"
+		"\n========================================================\n\n"
+		<< getTime() << "\n"
+		"\nAttended by Dr. " << d.getFullName() << "\n"
+		"Treatement   - " << d.getTreatment() << "\n"
+		"Observations - " << d.getObservations() << "\n"
+		"Cost         - " << "$" << cost << "\n";
 
+	std::string inv = "Attended by Dr " + d.getFullName() + " for $" + its(cost) + " at " + getTime();
+	p.sInvoice(inv); //Stores the cost
 }
-//display invoice function (could be done from invoice class)
-//find invoice function
 
 /* Displays all the doctors in dlist. */
 void System::displayDoctors()
@@ -92,9 +98,8 @@ Patient* System::findPatient(int pid)
 		if (pid == n.getID())
 		{
 			auto *i = &n;
-			return i;
+			return i;    //returns a pointer to the patient object.
 		}
-
 		continue;
 	}
 	//If the patient isn't found return to the main menu.
@@ -108,7 +113,6 @@ Doctor System::findDoctor(int did)
 	{
 		if (did == n.getID())
 			return n;
-
 		continue;
 	}
 	//If the doctor isn't found return to the main menu.
@@ -134,8 +138,6 @@ void System::patientLogin(Patient &p)
 	int loginChoice = 0, id = 0;     //loginChoice Stores the users choice for dashboard options, id stores the doctor to be searched fors id.
 	std::string symp = " ";			 //Stores patient symptoms.
 	std::string temp = " ";			 //Can store a physicians name or ID.
-
-	
 
 	std::cout << "\n";	//New line to show the system pause under the previous text.
 	system("pause");
@@ -172,7 +174,6 @@ void System::patientLogin(Patient &p)
 		std::cin >> loginChoice;
 		std::cin.ignore();
 	}
-
 
 	switch (loginChoice)
 	{
@@ -242,8 +243,9 @@ void System::patientLogin(Patient &p)
 			break;
 
 		case 3:
-
-			std::cout << "No invoices for patient " << p.getFullName() << std::endl;
+			//Printing the invoice history.
+			std::cout << "\n";
+			p.printInvoices();
 
 			patientLogin(p); //Goes back to the patients dashboard.
 			break;
@@ -411,7 +413,7 @@ void System::doctorLogin(Doctor d)
 			std::cin >> id;
 			std::cin.ignore();
 
-			for (Patient n : plist)
+			for (Patient &n : plist)
 			{
 				//If their ID match then their information is displayed.
 				if (id == n.getID())
@@ -442,12 +444,18 @@ void System::doctorLogin(Doctor d)
 							"0. Back \n>";
 						std::cin >> docChoice;  //Choice to either write an invoice or go back.
 
+						auto* i = &n; //Pointer to n (patient).
+
 						//The patient is only removed from the queue if their invoice gets written.
 						if (docChoice == 1)
 						{
-							//Doctor can write an invoice.
-							std::cout << "Invoice written";
-							removeFromQueue(n);
+							//An invoice can be written only if the patient is in queue.
+							if (inQueue(n))
+							{
+								//Doctor can write an invoice.
+								createInvoice(*i, d);
+								removeFromQueue(n);
+							}
 						}
 						else if (docChoice == 2)
 						{
@@ -455,15 +463,14 @@ void System::doctorLogin(Doctor d)
 							//Printing the visit history stack.
 							std::cout << "\n";
 							n.printVisHis();
+							doctorLogin(d);
 						}
 						else
 						{
 							//Going back to doctors login screen.
 							doctorLogin(d);
 						}
-
 					}
-
 				}
 			}
 			
@@ -496,7 +503,6 @@ void System::mMenu()
 	int choice = 0; //Choice stores the first choice the user makes, if they'are a doctor or patient.
 	do
 	{
-		getTime();
 		//Menu to allow the user to make a choice.
 		std::cout << "\n========================================================\n"
 			"  Emergency Room Patients Healthcare Management System  \n"
@@ -638,6 +644,8 @@ int System::duid()
 }
 
 /* Finds a patients turn in the queue. */
+//When only one person is in the queue and they get removed a number like '8290329' may appear, but when another person
+//is added the queue works just fine.
 int System::findTurn(Patient p)
 {
 	//Iterates through the queue and when it finds the ID it returns the position. Else it returns -1.
@@ -676,6 +684,5 @@ bool System::inQueue(Patient p)
 			return 0;
 		}
 	}
-
 	return flag;
 }

@@ -41,6 +41,8 @@
  * +setVisits()    -> Sets the visits the patient has had.
  * +setGend()      -> Sets the patients gender.
  * +setVisHis()    -> Pushes the time of visit onto the visit history stack.
+ * +sInvoice()     -> Stores the patients invoice in the list.
+ * +printInvoices()-> Prints the invoices that are in the list.
  * 
  * || OTHER ||
  * +printVisHis()  -> Prints the visit history of the patient.
@@ -63,11 +65,12 @@
  * 
  * Stacks:
  *      -std::stack<std::string> vhis -> Stores the visit history.
+ * Lists:
+ *      -std::list<Invoice> ilist -> Stores the patients invoices.
  * 
  *******************************************************************************/
 #include <stack>
-#include "BSTree.h"
-#include "Invoice.h"
+#include <list>
 
 class Patient
 {
@@ -96,10 +99,10 @@ class Patient
         void setID(int id);
         void setSymp(std::string s);
         void setVisHis(std::string s);
-        
+        void sInvoice(std::string);
 
         /* Other */
-    
+        void printInvoices();
         void printVisHis();
 
 
@@ -107,7 +110,7 @@ class Patient
         std::string name, lastNames, birthday, age, gender, symptoms;
         int visits = 0, turns = 0, ID = 0;
         std::stack<std::string> vhis; 
-        struct node* root = NULL;
+        std::list<std::string> ilist;
 
 };
 

@@ -24,6 +24,8 @@
  * +getFullName()  -> Returns the full name of the doctor by concatenating the 
  *  name and last name.
  * +getID()        -> Returns the ID of the doctor as an integer value.
+ * +getObservations() -> Returns the observations made by the doctor.
+ * +getTreatment() -> Returns the treatment the doctor applied.
  * 
  * || SETTER FUNCTIONS ||
  * +setName(std::string) -> Takes in a string as an argument and sets it as the 
@@ -43,7 +45,6 @@
  *      -ID -> Stores the doctors ID.
  * 
  *******************************************************************************/
-#include "Patient.h"
 
 class Doctor 
 {
@@ -55,6 +56,8 @@ class Doctor
 		std::string getName();
 		std::string getLastNames();
 		std::string getFullName();
+		std::string getTreatment();
+		std::string getObservations();
 		int getID();
 
 		/* Setters */

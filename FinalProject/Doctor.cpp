@@ -11,7 +11,6 @@
 #include <string>
 #include "Doctor.h"
 
-
 /* Default constructor, initializes name and lastNames from the users input. */
 Doctor::Doctor()
 {
@@ -33,6 +32,12 @@ std::string Doctor::getLastNames() { return lastNames; }
 /* Returns the full name of the doctor as a string. */
 std::string Doctor::getFullName() { return name + " " + lastNames; }
 
+/* Returns treatements applied by the doctor. */
+std::string Doctor::getTreatment() { return treatment; }
+
+/* Returns observations made by the doctor. */
+std::string Doctor::getObservations() { return observations; }
+
 /* Returns the ID of the doctor as an integer. */
 int Doctor::getID() { return ID;  }
 
@@ -44,6 +49,3 @@ void Doctor::setLastNames(std::string ln) { lastNames = ln; }
 
 /* Sets the doctors ID */
 void Doctor::setID(int id) { ID = id; }
-
-
-

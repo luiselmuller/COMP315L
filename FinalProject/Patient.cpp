@@ -95,6 +95,8 @@ void Patient::setSymp(std::string s) { symptoms = s; }
 /* Pushes the string taken as an argument to the stack. */
 void Patient::setVisHis(std::string s) { vhis.push(s); }
 
+/* Sets the cost of the treatment. */
+
 /* Prints out the visit history stack by making a copy and popping its contents with cout. */
 void Patient::printVisHis()
 {
@@ -103,3 +105,18 @@ void Patient::printVisHis()
 		std::cout << dump.top() << "\n";
 	}
 }
+
+/* Prints out the invoices that the patient has. */
+void Patient::printInvoices()
+{
+	for (std::string i : ilist)
+	{
+		std::cout << i << "\n";
+	}
+}
+
+/* Stores the patients invoice in the invoice list (ilist). */
+void Patient::sInvoice(std::string cost) { ilist.push_back(cost); }
+
+
+

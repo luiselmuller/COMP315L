@@ -58,8 +58,11 @@
  * 
  * || VARIABLES ||
  * No variables in the class
+ * 
  *******************************************************************************/
-#include "Invoice.h"
+#include "Doctor.h"
+#include "Patient.h"
+
 
 class System
 {
@@ -75,7 +78,7 @@ class System
 		void addDoctor();
 		void addPatient();
 		void removeFromQueue(Patient p);
-		void createInvoice(Patient p);
+		void createInvoice(Patient &p, Doctor d);
 		
 		/* Menus */
 		void mMenu();
@@ -89,9 +92,6 @@ class System
 		int duid();
 		int findTurn(Patient p);
 		bool inQueue(Patient p);
-
-	private:
-
 
 };
 #endif
