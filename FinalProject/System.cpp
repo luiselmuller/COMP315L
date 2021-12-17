@@ -206,7 +206,7 @@ void System::patientLogin(Patient &p)
 				//If the doctor is found the doctors information is displayed.
 				if (temp == n.getName() || temp == its(n.getID()))
 				{
-					std::cout << "Doctor " << n.getName() << " - ID -" << n.getID() << " is in the system.\n";
+					std::cout << "\nDoctor " << n.getName() << " - ID -" << n.getID() << " is in the system.";
 					continue;
 				}
 			}
